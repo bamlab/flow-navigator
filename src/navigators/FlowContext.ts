@@ -12,11 +12,6 @@ export interface FlowContext {
   getParent: () => NavigationProp<ParamListBase>;
 }
 
-export const FlowContext = React.createContext<FlowContext>({
-  navigationState: null,
-  getParent: null,
-  goPreviousStep: null,
-  goNextStep: null,
-});
+export const FlowContext = React.createContext<FlowContext>(undefined as any);
 
 export const useFlowContext = () => React.useContext(FlowContext);
