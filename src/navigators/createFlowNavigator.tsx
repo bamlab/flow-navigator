@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
   createNavigatorFactory,
-  NavigationProp,
-  NavigationState,
   ParamListBase,
   StackNavigationState,
   useNavigationBuilder,
@@ -20,6 +18,7 @@ import {
   FlowRouter,
 } from "../routers/FlowRouter";
 import { FlowNavigationEventMap, FlowNavigationOptions } from "../types/types";
+import { FlowContext } from "./FlowContext";
 
 function FlowNavigator({
   id,
@@ -73,35 +72,3 @@ export const createFlowNavigator = createNavigatorFactory<
   NativeStackNavigationEventMap,
   typeof FlowNavigator
 >(FlowNavigator);
-
-export interface FlowContext {
-  navigationState: NavigationState;
-  goPreviousStep: () => void;
-  goNextStep: () => void;
-  getParent: () => NavigationProp<ParamListBase>;
-}
-
-export const FlowContext = React.createContext<FlowContext>({
-  navigationState: null,
-  goPreviousStep: () => {},
-  goNextStep: () => {},
-  getParent: null,
-});
-
-export const useFlowContext = () => React.useContext(FlowContext);
-
-export const useFlow = () => {
-  const { navigationState, goNextStep, goPreviousStep, getParent } =
-    useFlowContext();
-
-  return {
-    currentStep: navigationState.routeNames[navigationState.index],
-    progress: navigationState.index / navigationState.routeNames.length,
-    canGoPreviousStep: navigationState.index !== 0,
-    canGoNextStep:
-      navigationState.index !== navigationState.routeNames.length - 1,
-    goNextStep,
-    goPreviousStep,
-    quitFlow: () => getParent().goBack(),
-  };
-};
