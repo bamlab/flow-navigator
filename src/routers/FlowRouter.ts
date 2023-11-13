@@ -1,6 +1,9 @@
 import {
+  CommonNavigationAction,
   ParamListBase,
+  Router,
   StackActionHelpers,
+  StackActionType,
   StackNavigationState,
   StackRouter,
   StackRouterOptions,
@@ -17,7 +20,23 @@ export type FlowActionHelpers<ParamList extends ParamListBase> = {
   quitFlow(): void;
 } & StackActionHelpers<ParamList>;
 
-export const FlowRouter = (options: FlowRouterOptions) => {
+export type FlowActionType =
+  | StackActionType
+  | {
+      type: "NEXT_STEP";
+      source?: string;
+    }
+  | {
+      type: "BACK_STEP";
+      source?: string;
+    };
+
+export const FlowRouter = (
+  options: FlowRouterOptions
+): Router<
+  StackNavigationState<ParamListBase>,
+  CommonNavigationAction | FlowActionType
+> => {
   const router = StackRouter(options);
 
   return {
@@ -28,8 +47,7 @@ export const FlowRouter = (options: FlowRouterOptions) => {
           const nextStepRouteName = state.routeNames[state.index + 1];
 
           if (!nextStepRouteName) {
-            console.error("COULD NOT FIND NEXT SCREEN FOR CURRENT ROUTE");
-            return;
+            return null;
           }
 
           return router.getStateForAction(
@@ -46,8 +64,7 @@ export const FlowRouter = (options: FlowRouterOptions) => {
           const previousRouteName = state.routeNames[state.index - 1];
 
           if (!previousRouteName) {
-            console.error("COULD NOT FIND PREVIOUS SCREEN FOR CURRENT ROUTE");
-            return;
+            return null;
           }
 
           return router.getStateForAction(
@@ -71,9 +88,6 @@ export const FlowRouter = (options: FlowRouterOptions) => {
       },
       goPreviousStep: () => {
         return { type: "BACK_STEP" };
-      },
-      quitFlow: () => {
-        return { type: "GO_BACK" };
       },
     },
   };
