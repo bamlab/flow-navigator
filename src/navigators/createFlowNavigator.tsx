@@ -4,11 +4,8 @@ import {
   NavigationProp,
   NavigationState,
   ParamListBase,
-  RouteProp,
-  StackActionHelpers,
   StackNavigationState,
   StackRouter,
-  StackRouterOptions,
   useNavigationBuilder,
 } from "@react-navigation/native";
 import {
@@ -17,44 +14,12 @@ import {
   NativeStackView,
 } from "@react-navigation/native-stack";
 import { NativeStackNavigatorProps } from "@react-navigation/native-stack/lib/typescript/src/types";
-
-export type FlowNavigationOptions = NativeStackNavigationOptions;
-
-export type FlowNavigationEventMap = NativeStackNavigationEventMap;
-
-export type FlowScreenProps<
-  ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string,
-  NavigatorID extends string | undefined = undefined
-> = {
-  navigation: FlowNavigationProp<ParamList, RouteName, NavigatorID>;
-  route: RouteProp<ParamList, RouteName>;
-};
-
-export type FlowNavigationProp<
-  ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string,
-  NavigatorID extends string | undefined = undefined
-> = NavigationProp<
-  ParamList,
-  RouteName,
-  NavigatorID,
-  StackNavigationState<ParamList>,
-  FlowNavigationOptions,
-  FlowNavigationEventMap
-> &
-  FlowActionHelpers<ParamList>;
-
-export type FlowRouterOptions = StackRouterOptions;
-
-export type FlowNavigationState<ParamList extends ParamListBase> =
-  StackNavigationState<ParamList>;
-
-export type FlowActionHelpers<ParamList extends ParamListBase> = {
-  goNextStep(): void;
-  goPreviousStep(): void;
-  quitFlow(): void;
-} & StackActionHelpers<ParamList>;
+import {
+  FlowActionHelpers,
+  FlowNavigationState,
+  FlowRouterOptions,
+} from "../routers/FlowRouter";
+import { FlowNavigationEventMap, FlowNavigationOptions } from "../types/types";
 
 const FlowRouter = (options) => {
   const router = StackRouter(options);
