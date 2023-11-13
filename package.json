@@ -4,7 +4,9 @@
   "description": "A flow navigator for react-navigation",
   "main": "src/index.ts",
   "source": "src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "test": "yarn tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bamlab/flow-navigator.git"
