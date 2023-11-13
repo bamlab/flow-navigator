@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   createNavigatorFactory,
   NavigationProp,
@@ -16,7 +17,10 @@ import {
   NativeStackView,
 } from "@react-navigation/native-stack";
 import { NativeStackNavigatorProps } from "@react-navigation/native-stack/lib/typescript/src/types";
-import * as React from "react";
+
+export type FlowNavigationOptions = NativeStackNavigationOptions;
+
+export type FlowNavigationEventMap = NativeStackNavigationEventMap;
 
 export type FlowScreenProps<
   ParamList extends ParamListBase,
@@ -36,10 +40,15 @@ export type FlowNavigationProp<
   RouteName,
   NavigatorID,
   StackNavigationState<ParamList>,
-  NativeStackNavigationOptions,
-  NativeStackNavigationEventMap
+  FlowNavigationOptions,
+  FlowNavigationEventMap
 > &
   FlowActionHelpers<ParamList>;
+
+export type FlowRouterOptions = StackRouterOptions;
+
+export type FlowNavigationState<ParamList extends ParamListBase> =
+  StackNavigationState<ParamList>;
 
 export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goNextStep(): void;
@@ -119,11 +128,11 @@ function FlowNavigator({
 }: NativeStackNavigatorProps) {
   const { state, descriptors, navigation, NavigationContent } =
     useNavigationBuilder<
-      StackNavigationState<ParamListBase>,
-      StackRouterOptions,
+      FlowNavigationState<ParamListBase>,
+      FlowRouterOptions,
       FlowActionHelpers<ParamListBase>,
-      NativeStackNavigationOptions,
-      NativeStackNavigationEventMap
+      FlowNavigationOptions,
+      FlowNavigationEventMap
     >(FlowRouter, {
       id,
       initialRouteName,
