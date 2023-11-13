@@ -20,7 +20,14 @@
   "homepage": "https://github.com/bamlab/flow-navigator#readme",
   "peerDependencies": {
     "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17"
+  },
+  "devDependencies": {
+    "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
-    "react": "*"
+    "@types/react": "^18.2.37",
+    "react": "^18.2.0",
+    "react-native": "^0.72.6",
+    "typescript": "^5.2.2"
   }
 }
