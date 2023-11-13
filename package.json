@@ -1,0 +1,21 @@
+{
+  "name": "flow-navigator",
+  "version": "1.0.0",
+  "description": "A flow navigator for react-navigation",
+  "main": "index.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamlab/flow-navigator.git"
+  },
+  "keywords": [
+    "react-navigation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bamlab/flow-navigator/issues"
+  },
+  "homepage": "https://github.com/bamlab/flow-navigator#readme"
+}
