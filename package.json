@@ -2,9 +2,9 @@
   "name": "flow-navigator",
   "version": "1.0.0",
   "description": "A flow navigator for react-navigation",
-  "main": "index.ts",
-  "scripts": {
-  },
+  "main": "src/index.ts",
+  "source": "src/index.ts",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bamlab/flow-navigator.git"
@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/bamlab/flow-navigator/issues"
   },
-  "homepage": "https://github.com/bamlab/flow-navigator#readme"
+  "homepage": "https://github.com/bamlab/flow-navigator#readme",
+  "peerDependencies": {
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "react": "*"
+  }
 }
