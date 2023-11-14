@@ -10,8 +10,8 @@ export const useFlow = () => {
     canGoToPreviousStep: navigationState.index !== 0,
     canGoToNextStep:
       navigationState.index !== navigationState.routeNames.length - 1,
-    goToNextStep,
     goToPreviousStep,
+    goToNextStep,
     quitFlow: () => getParent().goBack(),
   };
 };
