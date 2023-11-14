@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useFlow} from 'flow-navigator';
+import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {Step2StackParamList} from './Step2Navigator';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
@@ -12,7 +12,7 @@ export const Step22Page = () => {
   const {goBack} =
     useNavigation<NativeStackNavigationProp<Step2StackParamList>>();
 
-  const {goNextStep} = useFlow();
+  const {goToNextStep} = useFlow();
 
   const queryClient = useQueryClient();
   const {mutate: setHasToPassStep2ToOff} = useMutation(
@@ -21,7 +21,7 @@ export const Step22Page = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['hasToPassStep2']);
-        goNextStep();
+        goToNextStep();
       },
     },
   );

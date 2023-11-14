@@ -1154,6 +1154,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@bam.tech/flow-navigator@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@bam.tech/flow-navigator/-/flow-navigator-1.0.2.tgz#a470f3d27f6ce246b54e5227d6e7abfb1059af4e"
+  integrity sha512-ebGX7uz90juEsWecblUR7lhfSbmni5Ujk8b9L4naVad7o0A/4ExAFHBNyd0Ha/m8LbwVw0HxyeF3BMymhdAdpg==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -3441,10 +3446,6 @@ flow-enums-runtime@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/flow-enums-runtime/-/flow-enums-runtime-0.0.5.tgz#95884bfcc82edaf27eef7e1dd09732331cfbafbc"
   integrity sha512-PSZF9ZuaZD03sT9YaIs0FrGJ7lSUw7rHZIex+73UYVXg46eL/wxN5PaVcPJFudE2cJu5f0fezitV5aBkLHPUOQ==
-
-"flow-navigator@https://github.com/bamlab/flow-navigator.git":
-  version "1.0.0"
-  resolved "https://github.com/bamlab/flow-navigator.git#311d4b48893f1e4b8384b4d437938eb464f1c92d"
 
 flow-parser@0.*:
   version "0.221.0"

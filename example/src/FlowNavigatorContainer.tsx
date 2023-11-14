@@ -4,7 +4,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import {FlowNavigatorExample} from '../FlowNavigatorExample/FlowNavigatorExample';
+import {FlowNavigatorExample} from './FlowNavigatorExample';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
 type NativeStackParamList = {
