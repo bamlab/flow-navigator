@@ -1,5 +1,5 @@
 import React from 'react';
-import {createFlowNavigator} from 'flow-navigator';
+import {createFlowNavigator} from '@bam.tech/flow-navigator';
 import {useQuery} from '@tanstack/react-query';
 import {getHasToPassStep2} from '../queries/hasToPassStep2';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';

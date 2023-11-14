@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFlow} from 'flow-navigator';
+import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 

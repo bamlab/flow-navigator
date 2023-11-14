@@ -1,4 +1,4 @@
-import {useFlow} from 'flow-navigator';
+import {useFlow} from '@bam.tech/flow-navigator';
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 
