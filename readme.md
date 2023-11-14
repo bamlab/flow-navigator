@@ -2,7 +2,7 @@
 
 ## Simplifying Flow Navigation in React Native
 
-Flow Navigator provides a simplified API for managing navigation flows in your React Native applications with [React Navigation](https://reactnavigation.org/). It abstracts the complexity of flow management, allowing individual screens to navigate through the flow using simple methods like `goToNext` and `goToPrevious`, without the need to understand the entire navigation stack, or knowing which page exactly is the next one.
+Flow Navigator provides a simplified API for managing navigation flows in your React Native applications with [React Navigation](https://reactnavigation.org/). It abstracts the complexity of flow management, allowing individual screens to navigate through the flow using simple methods like `goToNextStep` and `goToPreviousStep`, without the need to understand the entire navigation stack, or knowing which page exactly is the next one.
 
 ## Features
 
@@ -43,10 +43,10 @@ In each screen component, you can navigate through the flow using:
 import { useFlow } from '@bam.tech/flow-navigator';
 
 const Step1Page = () => {
-  const { currentStep, goNextStep, goPreviousStep } = useFlow();
+  const { currentStep, goToNextStep, goToPreviousStep } = useFlow();
 
   return (
-    <Button title="Go to next page" onPress={() => goNextStep()} />
+    <Button title="Go to next page" onPress={() => goToNextStep()} />
   )
 };
 ```
@@ -79,7 +79,7 @@ export const App = () => {
 
 In this example, the Step2 screen is only included in the flow if hasToPassStep2 evaluates to true.
 
-You can check out a fully working example with a condition based on a backend state fetched with react-query in the [example](`./example/src/FlowNavigator.tsx`) folder
+You can check out a fully working example with a condition based on a backend state fetched with react-query in the [example](./example/src/FlowNavigatorExample.tsx) folder
 
 ### Define steps with several screens
 
@@ -98,8 +98,8 @@ Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which
 #### Properties
 - `currentStep`: A string representing the identifier of the current step in the flow. Based on the name of the screen.
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.
-- `canGoPreviousStep`: A boolean indicating whether navigation to a previous step is possible.
-- `canGoNextStep`: A boolean indicating whether navigation to the next step is possible.
+- `canGoToPreviousStep`: A boolean indicating whether navigation to a previous step is possible.
+- `canGoToNextStep`: A boolean indicating whether navigation to the next step is possible.
 
 #### Helpers
 - `goToNextStep`: To navigate to the next step in the flow, based on the order of the screens in the navigation flow.
