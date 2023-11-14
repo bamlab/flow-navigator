@@ -1,5 +1,5 @@
 {
-  "name": "flow-navigator",
+  "name": "@bam.tech/flow-navigator",
   "version": "1.0.0",
   "description": "A flow navigator for react-navigation",
   "main": "src/index.ts",
@@ -15,7 +15,7 @@
     "react-navigation"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bamlab/flow-navigator/issues"
   },
