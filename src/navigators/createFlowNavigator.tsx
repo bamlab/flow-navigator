@@ -43,13 +43,13 @@ function FlowNavigator({
       screenOptions,
     });
 
-  const { goPreviousStep, goToNextStep, getParent } = navigation;
+  const { goToPreviousStep, goToNextStep, getParent } = navigation;
 
   return (
     <FlowContext.Provider
       value={{
         navigationState: state,
-        goPreviousStep,
+        goToPreviousStep,
         goToNextStep,
         getParent,
       }}

@@ -1,7 +1,7 @@
 import { useFlowContext } from "./FlowContext";
 
 export const useFlow = () => {
-  const { navigationState, goToNextStep, goPreviousStep, getParent } =
+  const { navigationState, goToNextStep, goToPreviousStep, getParent } =
     useFlowContext();
 
   return {
@@ -11,7 +11,7 @@ export const useFlow = () => {
     canGoNextStep:
       navigationState.index !== navigationState.routeNames.length - 1,
     goToNextStep,
-    goPreviousStep,
+    goToPreviousStep,
     quitFlow: () => getParent().goBack(),
   };
 };

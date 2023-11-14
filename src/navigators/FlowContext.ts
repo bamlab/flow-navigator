@@ -7,7 +7,7 @@ import {
 
 export interface FlowContext {
   navigationState: NavigationState;
-  goPreviousStep: () => void;
+  goToPreviousStep: () => void;
   goToNextStep: () => void;
   getParent: () => NavigationProp<ParamListBase>;
 }

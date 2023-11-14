@@ -16,7 +16,7 @@ export type FlowNavigationState<ParamList extends ParamListBase> =
 
 export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goToNextStep(): void;
-  goPreviousStep(): void;
+  goToPreviousStep(): void;
   quitFlow(): void;
 } & StackActionHelpers<ParamList>;
 
@@ -86,7 +86,7 @@ export const FlowRouter = (
       goToNextStep: () => {
         return { type: "NEXT_STEP" };
       },
-      goPreviousStep: () => {
+      goToPreviousStep: () => {
         return { type: "BACK_STEP" };
       },
     },
