@@ -12,7 +12,7 @@ export const Step22Page = () => {
   const {goBack} =
     useNavigation<NativeStackNavigationProp<Step2StackParamList>>();
 
-  const {goNextStep} = useFlow();
+  const {goToNextStep} = useFlow();
 
   const queryClient = useQueryClient();
   const {mutate: setHasToPassStep2ToOff} = useMutation(
@@ -21,7 +21,7 @@ export const Step22Page = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['hasToPassStep2']);
-        goNextStep();
+        goToNextStep();
       },
     },
   );

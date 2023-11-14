@@ -9,14 +9,14 @@ import {FlowInfos} from '../FlowInfos';
 export const Step21Page = () => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<Step2StackParamList>>();
-  const {goPreviousStep, quitFlow} = useFlow();
+  const {goToPreviousStep, quitFlow} = useFlow();
 
   const goToNext = () => {
     navigate('Step22');
   };
 
   const goBack = () => {
-    goPreviousStep();
+    goToPreviousStep();
   };
 
   return (

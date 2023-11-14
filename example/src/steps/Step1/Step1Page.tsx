@@ -4,14 +4,14 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 
 export const Step1Page = () => {
-  const {goNextStep, quitFlow} = useFlow();
+  const {goToNextStep, quitFlow} = useFlow();
 
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Current page: 1</Text>
       <FlowInfos />
       <Button title="quit flow" onPress={quitFlow} />
-      <Button title="next" onPress={() => goNextStep()} />
+      <Button title="next" onPress={() => goToNextStep()} />
     </View>
   );
 };
