@@ -7,7 +7,7 @@ export const useFlow = () => {
   return {
     currentStep: navigationState.routeNames[navigationState.index],
     progress: navigationState.index / navigationState.routeNames.length,
-    canGoPreviousStep: navigationState.index !== 0,
+    canGoToPreviousStep: navigationState.index !== 0,
     canGoNextStep:
       navigationState.index !== navigationState.routeNames.length - 1,
     goToNextStep,
