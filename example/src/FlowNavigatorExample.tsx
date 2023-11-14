@@ -1,13 +1,13 @@
 import React from 'react';
 import {createFlowNavigator} from '@bam.tech/flow-navigator';
 import {useQuery} from '@tanstack/react-query';
-import {getHasToPassStep2} from '../queries/hasToPassStep2';
+import {getHasToPassStep2} from './queries/hasToPassStep2';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Step1Page} from '../steps/Step1/Step1Page';
-import {Step2Navigator} from '../steps/Step2/Step2Navigator';
-import {Step31Page} from '../steps/Step3/Step3-1Page';
-import {Step32Page} from '../steps/Step3/Step3-2Page';
-import {Step4Page} from '../steps/Step4/Step4Page';
+import {Step1Page} from './steps/Step1/Step1Page';
+import {Step2Navigator} from './steps/Step2/Step2Navigator';
+import {Step31Page} from './steps/Step3/Step3-1Page';
+import {Step32Page} from './steps/Step3/Step3-2Page';
+import {Step4Page} from './steps/Step4/Step4Page';
 
 const FlowNavigator = createFlowNavigator();
 const shouldPassStep3 = true;
