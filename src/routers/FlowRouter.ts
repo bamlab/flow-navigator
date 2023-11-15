@@ -84,6 +84,11 @@ export const buildFlowRouter =
             );
 
           case "QUIT_FLOW":
+            /**
+             * We didn't succeed defining this function in here, so we imported it from the parent. 
+             * To define this function here, an idea we had was to send POP_TO_TOP and GO_BACK events
+             * But those events don't work on the first page of the stack. They return null, and makes our action falls on the parent. But our action (QUIT_FLOW) does not exist on the parent, which probably is a StackNavigator, and not a FlowNavigator.
+             */
             quitFlowHelper();
 
             return state;
