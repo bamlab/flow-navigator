@@ -92,6 +92,12 @@ We recommend using groups if they suit your use-case. However, one limitation to
 ### FlowNavigator
 The Flow Navigator is built upon the foundation of the [native stack](https://reactnavigation.org/docs/native-stack-navigator/#api-definition), it inherits the same API.
 
+#### Helpers
+The flow navigator adds the following methods to the navigation prop:
+- `goToNextStep`: To navigate to the next step in the flow, based on the order of the screens in the navigation flow.
+- `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
+- `quitFlow`: To exit the flow.
+
 ### useFlow
 Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides the following:
 
@@ -100,11 +106,6 @@ Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.
 - `canGoToPreviousStep`: A boolean indicating whether navigation to a previous step is possible.
 - `canGoToNextStep`: A boolean indicating whether navigation to the next step is possible.
-
-#### Helpers
-- `goToNextStep`: To navigate to the next step in the flow, based on the order of the screens in the navigation flow.
-- `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
-- `quitFlow`: To exit the flow. 
 
 ## Contributing
 Pull requests and feature suggestions are more than welcome!
