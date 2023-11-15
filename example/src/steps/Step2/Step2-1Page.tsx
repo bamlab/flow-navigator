@@ -1,15 +1,13 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useFlow} from '@bam.tech/flow-navigator';
+import {FlowNavigationProp} from '@bam.tech/flow-navigator';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
 
 export const Step21Page = () => {
-  const {navigate} =
-    useNavigation<NativeStackNavigationProp<Step2StackParamList>>();
-  const {goToPreviousStep, quitFlow} = useFlow();
+  const {navigate, goToPreviousStep, quitFlow} =
+    useNavigation<FlowNavigationProp<Step2StackParamList>>();
 
   const goToNext = () => {
     navigate('Step22');

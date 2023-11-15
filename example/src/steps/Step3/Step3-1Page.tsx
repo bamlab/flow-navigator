@@ -1,10 +1,12 @@
 import React from 'react';
-import {useFlow} from '@bam.tech/flow-navigator';
+import {FlowNavigationProp} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 
 export const Step31Page = () => {
-  const {goToPreviousStep, goToNextStep} = useFlow();
+  const {goToPreviousStep, goToNextStep} =
+    useNavigation<FlowNavigationProp<ParamListBase>>();
 
   return (
     <View style={styles.container}>

@@ -1,6 +1,6 @@
 {
   "name": "@bam.tech/flow-navigator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A flow navigator for react-navigation",
   "main": "src/index.ts",
   "source": "src/index.ts",

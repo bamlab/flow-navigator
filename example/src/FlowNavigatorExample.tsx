@@ -28,7 +28,7 @@ export const FlowNavigatorExample = () => {
 
   return (
     <FlowNavigator.Navigator screenOptions={{headerShown: false}}>
-      <FlowNavigator.Screen name="Step11" component={Step1Page} />
+      <FlowNavigator.Screen name="Step1" component={Step1Page} />
       {hasToPassStep2 && (
         <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
       )}
@@ -38,7 +38,7 @@ export const FlowNavigatorExample = () => {
           <FlowNavigator.Screen name="Step32" component={Step32Page} />
         </FlowNavigator.Group>
       )}
-      <FlowNavigator.Screen name="Step4Navigator" component={Step4Page} />
+      <FlowNavigator.Screen name="Step4" component={Step4Page} />
     </FlowNavigator.Navigator>
   );
 };
