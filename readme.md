@@ -53,6 +53,9 @@ const Step1Page = () => {
 
 You can find a fully working example in the [example](./example/App.tsx) folder.
 
+![Alt text](<Nov-15-2023 15-29-57.gif>)
+
+
 ### Define conditional steps
 
 In certain scenarios, a flow may include steps that are conditional. These steps might be dependent on user-specific conditions or based on whether certain actions have already been completed. You can manage such conditional steps declaratively in your navigation flow.
