@@ -1154,10 +1154,10 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@bam.tech/flow-navigator@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@bam.tech/flow-navigator/-/flow-navigator-1.0.2.tgz#a470f3d27f6ce246b54e5227d6e7abfb1059af4e"
-  integrity sha512-ebGX7uz90juEsWecblUR7lhfSbmni5Ujk8b9L4naVad7o0A/4ExAFHBNyd0Ha/m8LbwVw0HxyeF3BMymhdAdpg==
+"@bam.tech/flow-navigator@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@bam.tech/flow-navigator/-/flow-navigator-1.0.3.tgz#70806d21ce77fbfa8a43fe6c193a3f0e7f3be428"
+  integrity sha512-L8jm92PsboQ5gzf47Byw96pjED7TAFXsUup1ubaoiLY1qvxP2VEzhP2Z/sCTeNpnDa6JM/xBE6CubtA7TXMDRg==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
