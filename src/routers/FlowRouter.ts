@@ -29,66 +29,80 @@ export type FlowActionType =
   | {
       type: "BACK_STEP";
       source?: string;
+    }
+  | {
+      type: "QUIT_FLOW";
+      source?: string;
     };
 
-export const FlowRouter = (
-  options: FlowRouterOptions
-): Router<
-  StackNavigationState<ParamListBase>,
-  CommonNavigationAction | FlowActionType
-> => {
-  const router = StackRouter(options);
+export const buildFlowRouter =
+  (quitFlowHelper: () => void) =>
+  (
+    options: FlowRouterOptions
+  ): Router<
+    StackNavigationState<ParamListBase>,
+    CommonNavigationAction | FlowActionType
+  > => {
+    const router = StackRouter(options);
 
-  return {
-    ...router,
-    getStateForAction(state, action, options) {
-      switch (action.type) {
-        case "NEXT_STEP":
-          const nextStepRouteName = state.routeNames[state.index + 1];
+    return {
+      ...router,
+      getStateForAction(state, action, options) {
+        switch (action.type) {
+          case "NEXT_STEP":
+            const nextStepRouteName = state.routeNames[state.index + 1];
 
-          if (!nextStepRouteName) {
-            return null;
-          }
+            if (!nextStepRouteName) {
+              return null;
+            }
 
-          return router.getStateForAction(
-            state,
-            {
-              type: "NAVIGATE",
-              source: action.source,
-              payload: { name: nextStepRouteName },
-            },
-            options
-          );
+            return router.getStateForAction(
+              state,
+              {
+                type: "NAVIGATE",
+                source: action.source,
+                payload: { name: nextStepRouteName },
+              },
+              options
+            );
 
-        case "BACK_STEP":
-          const previousRouteName = state.routeNames[state.index - 1];
+          case "BACK_STEP":
+            const previousRouteName = state.routeNames[state.index - 1];
 
-          if (!previousRouteName) {
-            return null;
-          }
+            if (!previousRouteName) {
+              return null;
+            }
 
-          return router.getStateForAction(
-            state,
-            {
-              type: "NAVIGATE",
-              source: action.source,
-              payload: { name: previousRouteName },
-            },
-            options
-          );
+            return router.getStateForAction(
+              state,
+              {
+                type: "NAVIGATE",
+                source: action.source,
+                payload: { name: previousRouteName },
+              },
+              options
+            );
 
-        default:
-          return router.getStateForAction(state, action, options);
-      }
-    },
-    actionCreators: {
-      ...router.actionCreators,
-      goToNextStep: () => {
-        return { type: "NEXT_STEP" };
+          case "QUIT_FLOW":
+            quitFlowHelper();
+
+            return state;
+
+          default:
+            return router.getStateForAction(state, action, options);
+        }
       },
-      goToPreviousStep: () => {
-        return { type: "BACK_STEP" };
+      actionCreators: {
+        ...router.actionCreators,
+        goToNextStep: () => {
+          return { type: "NEXT_STEP" };
+        },
+        goToPreviousStep: () => {
+          return { type: "BACK_STEP" };
+        },
+        quitFlow: () => {
+          return { type: "QUIT_FLOW" };
+        },
       },
-    },
+    };
   };
-};

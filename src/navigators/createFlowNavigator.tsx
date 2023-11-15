@@ -1,8 +1,11 @@
 import * as React from "react";
 import {
   createNavigatorFactory,
+  NavigationContext,
+  NavigationRouteContext,
   ParamListBase,
   StackNavigationState,
+  useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
 import {
@@ -15,7 +18,7 @@ import {
   FlowActionHelpers,
   FlowNavigationState,
   FlowRouterOptions,
-  FlowRouter,
+  buildFlowRouter,
 } from "../routers/FlowRouter";
 import { FlowNavigationEventMap, FlowNavigationOptions } from "../types/types";
 import { FlowContext } from "./FlowContext";
@@ -28,6 +31,12 @@ function FlowNavigator({
   screenOptions,
   ...rest
 }: NativeStackNavigatorProps) {
+  const parentNavigation = useNavigation()
+
+  const quitFlow = () => {
+    parentNavigation?.goBack()
+  }
+
   const { state, descriptors, navigation, NavigationContent } =
     useNavigationBuilder<
       FlowNavigationState<ParamListBase>,
@@ -35,7 +44,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(FlowRouter, {
+    >(buildFlowRouter(quitFlow), {
       id,
       initialRouteName,
       children,
@@ -43,15 +52,10 @@ function FlowNavigator({
       screenOptions,
     });
 
-  const { goToPreviousStep, goToNextStep, getParent } = navigation;
-
   return (
     <FlowContext.Provider
       value={{
         navigationState: state,
-        goToPreviousStep,
-        goToNextStep,
-        getParent,
       }}
     >
       <NavigationContent>
