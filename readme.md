@@ -40,10 +40,13 @@ export const FlowNavigator = () => {
 In each screen component, you can navigate through the flow using:
 
 ```tsx
-import { useFlow } from '@bam.tech/flow-navigator';
+import { useFlowStatus } from '@bam.tech/flow-navigator';
+import { useNavigation, ParamListBase } from '@react-navigation/native';
+import { FlowNavigationProp } from '@bam.tech/flow-navigator';
 
 const Step1Page = () => {
-  const { currentStep, goToNextStep, goToPreviousStep } = useFlow();
+  const { goToNextStep, goToPreviousStep } = useNavigation<FlowNavigationProp<ParamListBase>>();
+  const { currentStep } = useFlowStatus();
 
   return (
     <Button title="Go to next page" onPress={() => goToNextStep()} />
@@ -101,10 +104,9 @@ The flow navigator adds the following methods to the navigation prop:
 - `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
 - `quitFlow`: To exit the flow.
 
-### useFlow
-Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides the following:
+### useFlowStatus
+Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`, which provides information about the current step of the flow. It contains the following properties:
 
-#### Properties
 - `currentStep`: A string representing the identifier of the current step in the flow. Based on the name of the screen.
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.
 - `canGoToPreviousStep`: A boolean indicating whether navigation to a previous step is possible.

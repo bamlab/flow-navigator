@@ -1,6 +1,6 @@
 import { useFlowContext } from "./FlowContext";
 
-export const useFlow = () => {
+export const useFlowStatus = () => {
   const { navigationState } =
     useFlowContext();
 

@@ -3,7 +3,7 @@
  */
 export { createFlowNavigator } from "./navigators/createFlowNavigator";
 
-export { useFlow } from "./navigators/useFlow";
+export { useFlowStatus } from "./navigators/useFlow";
 
 /**
  * Types
