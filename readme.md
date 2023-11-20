@@ -68,24 +68,24 @@ Here's an example where "Step 2" is conditionally displayed based on the hasToPa
 ```tsx
 import { FlowNavigator } from '@bam.tech/flow-navigator';
 
-const AppFlow = createFlowNavigator();
+const FlowNavigator = createFlowNavigator();
 
 export const App = () => {
   const hasToPassStep2 = /* your condition here */;
 
   return (
-    <AppFlow.Navigator screenOptions={{ headerShown: false }}>
-      <AppFlow.Screen name="Step1" component={Step1Page} />
-      {hasToPassStep2 && <AppFlow.Screen name="Step2" component={Step2Page} />}
-      <AppFlow.Screen name="Step3" component={Step3Page} />
-    </AppFlow.Navigator>
+    <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
+      <FlowNavigator.Screen name="Step1" component={Step1Page} />
+      {hasToPassStep2 && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
+      <FlowNavigator.Screen name="Step3" component={Step3Page} />
+    </FlowNavigator.Navigator>
   );
 };
 ```
 
 In this example, the Step2 screen is only included in the flow if hasToPassStep2 evaluates to true.
 
-You can check out a fully working example with a condition based on a backend state fetched with react-query in the [example](./example/src/FlowNavigatorExample.tsx) folder
+You can check out a fully working example in the [example](./example/src/FlowNavigatorExample.tsx) folder
 
 ### Define steps with several screens
 
