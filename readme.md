@@ -1,3 +1,4 @@
+![Alt text](image.png)
 # Flow Navigator for React Navigation
 
 ## Simplifying Flow Navigation in React Native
