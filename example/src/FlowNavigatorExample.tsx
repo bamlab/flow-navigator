@@ -8,6 +8,7 @@ import {Step2Navigator} from './steps/Step2/Step2Navigator';
 import {Step31Page} from './steps/Step3/Step3-1Page';
 import {Step32Page} from './steps/Step3/Step3-2Page';
 import {Step4Page} from './steps/Step4/Step4Page';
+import {Step5Page} from './steps/Step5/Step4Page';
 
 const FlowNavigator = createFlowNavigator();
 const shouldPassStep3 = true;
@@ -39,6 +40,7 @@ export const FlowNavigatorExample = () => {
         </FlowNavigator.Group>
       )}
       <FlowNavigator.Screen name="Step4" component={Step4Page} />
+      <FlowNavigator.Screen name="Step5" component={Step5Page} />
     </FlowNavigator.Navigator>
   );
 };

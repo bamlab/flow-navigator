@@ -4,15 +4,13 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 
-export const Step4Page = () => {
-  const {goToPreviousStep, goToNextStep} =
-    useNavigation<FlowNavigationProp<ParamListBase>>();
+export const Step5Page = () => {
+  const {goToPreviousStep} = useNavigation<FlowNavigationProp<ParamListBase>>();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.pageTitle}>Current page: 4</Text>
+      <Text style={styles.pageTitle}>Current page: 5</Text>
       <FlowInfos />
-      <Button title="next" onPress={goToNextStep} />
       <Button title="back" onPress={goToPreviousStep} />
     </View>
   );
