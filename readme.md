@@ -1,3 +1,4 @@
+![Alt text](image.png)
 # Flow Navigator for React Navigation
 
 ## Simplifying Flow Navigation in React Native
@@ -40,10 +41,13 @@ export const FlowNavigator = () => {
 In each screen component, you can navigate through the flow using:
 
 ```tsx
-import { useFlow } from '@bam.tech/flow-navigator';
+import { useFlowStatus } from '@bam.tech/flow-navigator';
+import { useNavigation, ParamListBase } from '@react-navigation/native';
+import { FlowNavigationProp } from '@bam.tech/flow-navigator';
 
 const Step1Page = () => {
-  const { currentStep, goToNextStep, goToPreviousStep } = useFlow();
+  const { goToNextStep, goToPreviousStep } = useNavigation<FlowNavigationProp<ParamListBase>>();
+  const { currentStep } = useFlowStatus();
 
   return (
     <Button title="Go to next page" onPress={() => goToNextStep()} />
@@ -65,24 +69,24 @@ Here's an example where "Step 2" is conditionally displayed based on the hasToPa
 ```tsx
 import { FlowNavigator } from '@bam.tech/flow-navigator';
 
-const AppFlow = createFlowNavigator();
+const FlowNavigator = createFlowNavigator();
 
 export const App = () => {
   const hasToPassStep2 = /* your condition here */;
 
   return (
-    <AppFlow.Navigator screenOptions={{ headerShown: false }}>
-      <AppFlow.Screen name="Step1" component={Step1Page} />
-      {hasToPassStep2 && <AppFlow.Screen name="Step2" component={Step2Page} />}
-      <AppFlow.Screen name="Step3" component={Step3Page} />
-    </AppFlow.Navigator>
+    <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
+      <FlowNavigator.Screen name="Step1" component={Step1Page} />
+      {hasToPassStep2 && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
+      <FlowNavigator.Screen name="Step3" component={Step3Page} />
+    </FlowNavigator.Navigator>
   );
 };
 ```
 
 In this example, the Step2 screen is only included in the flow if hasToPassStep2 evaluates to true.
 
-You can check out a fully working example with a condition based on a backend state fetched with react-query in the [example](./example/src/FlowNavigatorExample.tsx) folder
+You can check out a fully working example in the [example](./example/src/FlowNavigatorExample.tsx) folder
 
 ### Define steps with several screens
 
@@ -101,10 +105,9 @@ The flow navigator adds the following methods to the navigation prop:
 - `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
 - `quitFlow`: To exit the flow.
 
-### useFlow
-Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides the following:
+### useFlowStatus
+Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`, which provides information about the current step of the flow. It contains the following properties:
 
-#### Properties
 - `currentStep`: A string representing the identifier of the current step in the flow. Based on the name of the screen.
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.
 - `canGoToPreviousStep`: A boolean indicating whether navigation to a previous step is possible.

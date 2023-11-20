@@ -1,24 +1,17 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {FlowNavigationProp} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 
-export const Step22Page = () => {
-  const {goBack, goToNextStep} =
-    useNavigation<FlowNavigationProp<Step2StackParamList>>();
-
-  const onBackPress = () => {
-    goBack();
-  };
+export const Step5Page = () => {
+  const {goToPreviousStep} = useNavigation<FlowNavigationProp<ParamListBase>>();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.pageTitle}>Current page: 2.2</Text>
+      <Text style={styles.pageTitle}>Current page: 5</Text>
       <FlowInfos />
-      <Button title="next" onPress={goToNextStep} />
-      <Button title="back" onPress={onBackPress} />
+      <Button title="back" onPress={goToPreviousStep} />
     </View>
   );
 };

@@ -1,10 +1,10 @@
-import {useFlow} from '@bam.tech/flow-navigator';
+import {useFlowStatus} from '@bam.tech/flow-navigator';
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 
 export const FlowInfos = () => {
   const {canGoToPreviousStep, canGoToNextStep, currentStep, progress} =
-    useFlow();
+    useFlowStatus();
 
   return (
     <>
