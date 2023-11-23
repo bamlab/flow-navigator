@@ -7,7 +7,8 @@ Flow Navigator provides a simplified API for managing navigation flows in your R
 
 ## Features
 
-- **Simplified Flow Management**: Easily manage the navigation flow without the need for screens to be aware of their position in the flow.
+- **Simplified Flow Management**: Get a comprehensive overview of your flow in a single location. This allows new developers to quickly understand the entire flow without the need to examine each page individually.
+- **Separation of responsibility**: Screens are not aware of their specific position in the flow.They don't need to know which page is next; they simply navigate to the next page in the flow.
 - **Declarative Screen Ordering**: Define the order of screens in your navigation flow declaratively, ensuring a clear and maintainable navigation structure.
 
 ## Installation
@@ -93,6 +94,15 @@ You can check out a fully working example in the [example](./example/src/FlowNav
 In some scenarios, a single step in a flow may encompass several screens. To group these screens within one step, you have a couple of options: using [Groups](https://reactnavigation.org/docs/group/) or [Nested navigators](https://reactnavigation.org/docs/screen-options-resolution/). 
 Examples of both approaches can be found in the example folder.
 We recommend using groups if they suit your use-case. However, one limitation to note is that the `currentStep` will reflect the name of the screen that is currently focused, not the group name. So all the screens in the step won't have the same `currentStep` value. With nested navigator, `currentStep` is the name of the subnavigator, which provides a more cohesive representation of the step.
+
+### Use cases
+Flows are sequences of pages with a pre-defined order, guiding users through a specific process within your app. Whether complex or straightforward, flows are a fundamental part of the user experience in many applications. Here are some common examples where Flow Navigator can be particularly useful:
+- Onboarding flow
+- Post publication flow
+- Subscription flow
+- Shopping cart checkout process
+- Survey of feedback flow
+- Profile setup flow
 
 ## API definition
 
