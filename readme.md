@@ -133,13 +133,13 @@ Use [yarn link](https://classic.yarnpkg.com/lang/en/docs/cli/link/) to try out y
 ```bash
   yarn link
 ```
-2. Link in the Example Project:
+2. Link in the example project:
 ```bash
   cd example
   yarn link "@bam.tech/flow-navigator"
 ```
 
-3. Unlink When Done:
+3. Unlink when done:
 ```bash
   yarn unlink "@bam.tech/flow-navigator"
   yarn install
