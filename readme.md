@@ -8,7 +8,7 @@ Flow Navigator provides a simplified API for managing navigation flows in your R
 ## Features
 
 - **Simplified Flow Management**: Get a comprehensive overview of your flow in a single location. This allows new developers to quickly understand the entire flow without the need to examine each page individually.
-- **Separation of responsibility**: Screens are not aware of their specific position in the flow.They don't need to know which page is next; they simply navigate to the next page in the flow.
+- **Separation of responsibility**: Screens are not aware of their specific position in the flow. They don't need to know which page is next; they simply navigate to the next page in the flow.
 - **Declarative Screen Ordering**: Define the order of screens in your navigation flow declaratively, ensuring a clear and maintainable navigation structure.
 
 ## Installation
@@ -23,11 +23,11 @@ npm install @bam.tech/flow-navigator
 ### Basic usage
 
 ```tsx
-import { FlowNavigator } from '@bam.tech/flow-navigator';
+import { createFlowNavigator } from '@bam.tech/flow-navigator';
 
 const FlowNavigator = createFlowNavigator();
 
-export const FlowNavigator = () => {
+export const FlowNavigatorExample = () => {
    // Define your screens and their order in the flow
   return (
     <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
@@ -68,11 +68,11 @@ In certain scenarios, a flow may include steps that are conditional. These steps
 Here's an example where "Step 2" is conditionally displayed based on the hasToPassStep2 variable. This variable could be a piece of data fetched from the backend or a state within your application.
 
 ```tsx
-import { FlowNavigator } from '@bam.tech/flow-navigator';
+import { createFlowNavigator } from '@bam.tech/flow-navigator';
 
 const FlowNavigator = createFlowNavigator();
 
-export const App = () => {
+export const FlowNavigatorExample = () => {
   const hasToPassStep2 = /* your condition here */;
 
   return (
