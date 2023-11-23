@@ -7,7 +7,8 @@ Flow Navigator provides a simplified API for managing navigation flows in your R
 
 ## Features
 
-- **Simplified Flow Management**: Easily manage the navigation flow without the need for screens to be aware of their position in the flow.
+- **Simplified Flow Management**: Get a comprehensive overview of your flow in a single location. This allows new developers to quickly understand the entire flow without the need to examine each page individually.
+- **Separation of responsibility**: Screens are not aware of their specific position in the flow. They don't need to know which page is next; they simply navigate to the next page in the flow.
 - **Declarative Screen Ordering**: Define the order of screens in your navigation flow declaratively, ensuring a clear and maintainable navigation structure.
 
 ## Installation
@@ -22,11 +23,11 @@ npm install @bam.tech/flow-navigator
 ### Basic usage
 
 ```tsx
-import { FlowNavigator } from '@bam.tech/flow-navigator';
+import { createFlowNavigator } from '@bam.tech/flow-navigator';
 
 const FlowNavigator = createFlowNavigator();
 
-export const FlowNavigator = () => {
+export const FlowNavigatorExample = () => {
    // Define your screens and their order in the flow
   return (
     <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
@@ -67,11 +68,11 @@ In certain scenarios, a flow may include steps that are conditional. These steps
 Here's an example where "Step 2" is conditionally displayed based on the hasToPassStep2 variable. This variable could be a piece of data fetched from the backend or a state within your application.
 
 ```tsx
-import { FlowNavigator } from '@bam.tech/flow-navigator';
+import { createFlowNavigator } from '@bam.tech/flow-navigator';
 
 const FlowNavigator = createFlowNavigator();
 
-export const App = () => {
+export const FlowNavigatorExample = () => {
   const hasToPassStep2 = /* your condition here */;
 
   return (
@@ -94,6 +95,15 @@ In some scenarios, a single step in a flow may encompass several screens. To gro
 Examples of both approaches can be found in the example folder.
 We recommend using groups if they suit your use-case. However, one limitation to note is that the `currentStep` will reflect the name of the screen that is currently focused, not the group name. So all the screens in the step won't have the same `currentStep` value. With nested navigator, `currentStep` is the name of the subnavigator, which provides a more cohesive representation of the step.
 
+### Use cases
+Flows are sequences of pages with a pre-defined order, guiding users through a specific process within your app. Whether complex or straightforward, flows are a fundamental part of the user experience in many applications. Here are some common examples where Flow Navigator can be particularly useful:
+- Onboarding flow
+- Post publication flow
+- Subscription flow
+- Shopping cart checkout process
+- Survey of feedback flow
+- Profile setup flow
+
 ## API definition
 
 ### FlowNavigator
@@ -115,3 +125,22 @@ Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`,
 
 ## Contributing
 Pull requests and feature suggestions are more than welcome!
+
+You can try out your changes in the example folder.
+Use [yarn link](https://classic.yarnpkg.com/lang/en/docs/cli/link/) to try out your local library version:
+
+1. At the root directory of `@bam.tech/flow-navigator`, run
+```bash
+  yarn link
+```
+2. Link in the Example Project:
+```bash
+  cd example
+  yarn link "@bam.tech/flow-navigator"
+```
+
+3. Unlink When Done:
+```bash
+  yarn unlink "@bam.tech/flow-navigator"
+  yarn install
+```
