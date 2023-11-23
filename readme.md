@@ -125,3 +125,22 @@ Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`,
 
 ## Contributing
 Pull requests and feature suggestions are more than welcome!
+
+You can try out your changes in the example folder.
+Use [yarn link](https://classic.yarnpkg.com/lang/en/docs/cli/link/) to try out your local library version:
+
+1. At the root directory of `@bam.tech/flow-navigator`, run
+```bash
+  yarn link
+```
+2. Link in the Example Project:
+```bash
+  cd example
+  yarn link "@bam.tech/flow-navigator"
+```
+
+3. Unlink When Done:
+```bash
+  yarn unlink "@bam.tech/flow-navigator"
+  yarn install
+```
