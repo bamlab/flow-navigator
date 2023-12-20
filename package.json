@@ -2,7 +2,8 @@
   "name": "@bam.tech/flow-navigator",
   "version": "1.0.4",
   "description": "A flow navigator for react-navigation",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "source": "src/index.ts",
   "scripts": {
     "test": "yarn tsc"
