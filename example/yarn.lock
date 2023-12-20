@@ -1154,10 +1154,10 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@bam.tech/flow-navigator@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@bam.tech/flow-navigator/-/flow-navigator-1.0.3.tgz#70806d21ce77fbfa8a43fe6c193a3f0e7f3be428"
-  integrity sha512-L8jm92PsboQ5gzf47Byw96pjED7TAFXsUup1ubaoiLY1qvxP2VEzhP2Z/sCTeNpnDa6JM/xBE6CubtA7TXMDRg==
+"@bam.tech/flow-navigator@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@bam.tech/flow-navigator/-/flow-navigator-1.0.4.tgz#bedbca96cab7a70b07651aa3ab411d6156246cdc"
+  integrity sha512-Oktjwrdcw3UHS9tBvnj33aX3Wd1kxVE5opAtUs3eDPr7ZxJ1b9FgRJ6NCbrTnqCgNTjiHEXJ2QtTGo2A6yxyew==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
@@ -4480,6 +4480,11 @@ joi@^17.2.1:
     "@sideway/address" "^4.1.3"
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
+
+jotai@^2.5.1:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.6.0.tgz#68b5d634f78a9ea55adfb8d92206ef59304b5dd5"
+  integrity sha512-Vt6hsc04Km4j03l+Ax+Sc+FVft5cRJhqgxt6GTz6GM2eM3DyX3CdBdzcG0z2FrlZToL1/0OAkqDghIyARWnSuQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
