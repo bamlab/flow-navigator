@@ -1,0 +1,37 @@
+{
+  "name": "@bam.tech/flow-navigator",
+  "version": "1.0.4",
+  "description": "A flow navigator for react-navigation",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "transpile": "yarn tsc",
+    "publish:prepare": "yarn transpile",
+    "publish:package": "yarn publish:prepare && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamlab/flow-navigator.git"
+  },
+  "keywords": [
+    "react-navigation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bamlab/flow-navigator/issues"
+  },
+  "homepage": "https://github.com/bamlab/flow-navigator#readme",
+  "peerDependencies": {
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "react": "*",
+    "react-native": "^0.72.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "typescript": "^5.2.2"
+  }
+}
