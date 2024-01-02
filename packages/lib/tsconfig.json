@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "noEmit": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
     "lib": ["esnext"],
+    "outDir": "./dist",
     "moduleResolution": "node",
-    "noEmit": true,
+    "noEmit": false,
     "strict": true,
     "target": "esnext",
     "noImplicitReturns": true,
@@ -23,7 +23,8 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "declaration": true
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"]
 }

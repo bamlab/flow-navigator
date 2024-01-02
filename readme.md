@@ -126,21 +126,41 @@ Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`,
 ## Contributing
 Pull requests and feature suggestions are more than welcome!
 
+### Testing your changes
 You can try out your changes in the example folder.
 Use [yarn link](https://classic.yarnpkg.com/lang/en/docs/cli/link/) to try out your local library version:
 
 1. At the root directory of `@bam.tech/flow-navigator`, run
 ```bash
+  cd packages/lib
   yarn link
 ```
 2. Link in the example project:
 ```bash
-  cd example
+  cd packages/example
   yarn link "@bam.tech/flow-navigator"
 ```
 
-3. Unlink when done:
+3. Make your changes in the lib, and transpile the code from TS to JS, to be able to try out the changes in the example. You can run this command at the root of the repo
 ```bash
+  yarn transpile:lib
+```
+
+4. Unlink when done, once the changes are published:
+```bash
+  cd packages/example
   yarn unlink "@bam.tech/flow-navigator"
   yarn install
+```
+
+### Publishing the package
+1. Increment the package.json in ./packages/lib/package.json
+2. Commit the change git commit -m "chore: bump version"
+2. Add a tag matching the version 
+```bash
+   git tag vx.x.x && git push --tags
+```
+3. Then publish the package: run this command at the root of the repo
+```bash
+  yarn publish:lib
 ```
