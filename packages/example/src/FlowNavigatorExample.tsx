@@ -13,12 +13,12 @@ import {Step5Page} from './steps/Step5/Step4Page';
 const FlowNavigator = createFlowNavigator();
 
 export const FlowNavigatorExample = () => {
-  const {data: hasToPassStep4, isLoading: isStep2Loading} = useQuery(
+  const {data: hasToPassStep4, isLoading: isStep4Loading} = useQuery(
     ['hasToPassStep4'],
     getHasToPassStep4,
   );
 
-  if (isStep2Loading) {
+  if (isStep4Loading) {
     return (
       <View style={styles.container}>
         <ActivityIndicator />
@@ -26,10 +26,16 @@ export const FlowNavigatorExample = () => {
     );
   }
 
+  const disabledRoutes = [
+    'Step31',
+    'Step32',
+    ...(hasToPassStep4 ? [] : ['Step4']),
+  ];
+
   return (
     <FlowNavigator.Navigator
       screenOptions={{headerShown: false}}
-      disabledRoutes={['Step31', 'Step32']}>
+      disabledRoutes={disabledRoutes}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
       <FlowNavigator.Group>
