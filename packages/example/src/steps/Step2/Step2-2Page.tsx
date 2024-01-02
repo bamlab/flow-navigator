@@ -6,8 +6,15 @@ import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
 
 export const Step22Page = () => {
-  const {goBack, goToNextStep} =
+  const {goBack, goToNextStep, enableRoute} =
     useNavigation<FlowNavigationProp<Step2StackParamList>>();
+
+  const onNextPress = async () => {
+    enableRoute({
+      routeName: 'Step31',
+    });
+    goToNextStep();
+  };
 
   const onBackPress = () => {
     goBack();
@@ -17,7 +24,7 @@ export const Step22Page = () => {
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Current page: 2.2</Text>
       <FlowInfos />
-      <Button title="next" onPress={goToNextStep} />
+      <Button title="next" onPress={onNextPress} />
       <Button title="back" onPress={onBackPress} />
     </View>
   );
