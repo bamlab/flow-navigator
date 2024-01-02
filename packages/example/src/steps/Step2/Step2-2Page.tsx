@@ -10,9 +10,7 @@ export const Step22Page = () => {
     useNavigation<FlowNavigationProp<Step2StackParamList>>();
 
   const onNextPress = async () => {
-    enableRoute({
-      routeName: 'Step31',
-    });
+    enableRoute('Step31');
     goToNextStep();
   };
 

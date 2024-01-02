@@ -15,8 +15,8 @@ export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goToNextStep(): void;
   goToPreviousStep(): void;
   quitFlow(): void;
-  enableRoute(payload: any): void; // todo : transform payload into string instead of object
-  disableRoute(): void;
+  enableRoute(routeName: Extract<keyof ParamList, string>): void;
+  disableRoute(routeName: Extract<keyof ParamList, string>): void;
 } & StackActionHelpers<ParamList>;
 
 export type FlowActionType =
@@ -160,11 +160,11 @@ export const buildFlowRouter =
         quitFlow: () => {
           return { type: "QUIT_FLOW" };
         },
-        enableRoute: (payload) => {
-          return { type: "ENABLE_ROUTE", payload };
+        enableRoute: (routeName) => {
+          return { type: "ENABLE_ROUTE", payload: {routeName} };
         },
-        disableRoute: (payload) => {
-          return { type: "DISABLE_ROUTE", payload };
+        disableRoute: (routeName) => {
+          return { type: "DISABLE_ROUTE", payload: {routeName} };
         },
       },
     };
