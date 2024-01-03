@@ -9,20 +9,16 @@ import {Step31Page} from './steps/Step3/Step3-1Page';
 import {Step32Page} from './steps/Step3/Step3-2Page';
 import {Step4Page} from './steps/Step4/Step4Page';
 import {Step5Page} from './steps/Step5/Step4Page';
-import {hasToPassStep3Atom} from './globalStates/hasToPassStep3';
-import {useAtom} from 'jotai';
 
 const FlowNavigator = createFlowNavigator();
 
 export const FlowNavigatorExample = () => {
-  const [hasToPassStep3] = useAtom(hasToPassStep3Atom);
-
-  const {data: hasToPassStep4, isLoading: isStep2Loading} = useQuery(
+  const {data: hasToPassStep4, isLoading: isStep4Loading} = useQuery(
     ['hasToPassStep4'],
     getHasToPassStep4,
   );
 
-  if (isStep2Loading) {
+  if (isStep4Loading) {
     return (
       <View style={styles.container}>
         <ActivityIndicator />
@@ -30,19 +26,23 @@ export const FlowNavigatorExample = () => {
     );
   }
 
+  const disabledRoutes = [
+    'Step31',
+    'Step32',
+    ...(hasToPassStep4 ? [] : ['Step4']),
+  ];
+
   return (
-    <FlowNavigator.Navigator screenOptions={{headerShown: false}}>
+    <FlowNavigator.Navigator
+      screenOptions={{headerShown: false}}
+      disabledRoutes={disabledRoutes}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
-      {hasToPassStep3 && (
-        <FlowNavigator.Group>
-          <FlowNavigator.Screen name="Step31" component={Step31Page} />
-          <FlowNavigator.Screen name="Step32" component={Step32Page} />
-        </FlowNavigator.Group>
-      )}
-      {hasToPassStep4 && (
-        <FlowNavigator.Screen name="Step4" component={Step4Page} />
-      )}
+      <FlowNavigator.Group>
+        <FlowNavigator.Screen name="Step31" component={Step31Page} />
+        <FlowNavigator.Screen name="Step32" component={Step32Page} />
+      </FlowNavigator.Group>
+      <FlowNavigator.Screen name="Step4" component={Step4Page} />
       <FlowNavigator.Screen name="Step5" component={Step5Page} />
     </FlowNavigator.Navigator>
   );
