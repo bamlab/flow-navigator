@@ -5,9 +5,9 @@ export const useFlowStatus = () => {
   const { navigationState, currentStepIndex } = useContext(FlowContext);
 
   return {
-    currentStep: navigationState.routeNames[currentStepIndex],
-    progress: currentStepIndex / navigationState.routeNames.length,
+    currentStep: navigationState.availableRoutes[currentStepIndex],
+    progress: currentStepIndex / navigationState.availableRoutes.length,
     canGoToPreviousStep: currentStepIndex !== 0,
-    canGoToNextStep: currentStepIndex !== navigationState.routeNames.length - 1,
+    canGoToNextStep: currentStepIndex !== navigationState.availableRoutes.length - 1,
   };
 };
