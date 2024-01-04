@@ -26,7 +26,7 @@ export const FlowNavigatorExample = () => {
     );
   }
 
-  const disabledRoutes = [
+  const initialDisabledRoutes = [
     'Step31',
     'Step32',
     ...(hasToPassStep4 ? [] : ['Step4']),
@@ -35,7 +35,7 @@ export const FlowNavigatorExample = () => {
   return (
     <FlowNavigator.Navigator
       screenOptions={{headerShown: false}}
-      disabledRoutes={disabledRoutes}>
+      initialDisabledRoutes={initialDisabledRoutes}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
       <FlowNavigator.Group>

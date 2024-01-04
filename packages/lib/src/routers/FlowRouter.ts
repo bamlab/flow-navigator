@@ -46,7 +46,7 @@ export type FlowActionType =
 
 
 export const buildFlowRouter =
-  (quitFlowHelper: () => void, disabledRoutes: string[]) =>
+  (quitFlowHelper: () => void, initialDisabledRoutes: string[]) =>
   (
     options: FlowRouterOptions
   ): Router<
@@ -65,7 +65,7 @@ export const buildFlowRouter =
         const { routeNames } = params;
         const availableRoutes = routeNames.filter(
           (routeName) =>
-            !disabledRoutes.find((disabledRoute) => disabledRoute === routeName)
+            !initialDisabledRoutes.find((disabledRoute) => disabledRoute === routeName)
         );
 
         return {

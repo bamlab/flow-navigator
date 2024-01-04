@@ -55,7 +55,7 @@ export type FlowNavigatorProps = DefaultNavigatorOptions<
 > &
   StackRouterOptions &
   NativeStackNavigationConfig & {
-    disabledRoutes: Extract<keyof ParamListBase, string>[];
+    initialDisabledRoutes: Extract<keyof ParamListBase, string>[];
   };
 
 export type FlowStackNavigationOptions = NativeStackNavigationOptions & {

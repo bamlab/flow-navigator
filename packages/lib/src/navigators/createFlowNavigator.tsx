@@ -23,7 +23,7 @@ function FlowNavigator({
   children,
   screenListeners,
   screenOptions,
-  disabledRoutes,
+  initialDisabledRoutes,
   ...rest
 }: FlowNavigatorProps) {
   const parentNavigation = useNavigation()
@@ -39,7 +39,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, disabledRoutes), {
+    >(buildFlowRouter(quitFlow, initialDisabledRoutes), {
       id,
       initialRouteName,
       children,
