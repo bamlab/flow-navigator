@@ -5,16 +5,19 @@ import {
   useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
-import {
-  NativeStackNavigationEventMap,
-  NativeStackView,
-} from "@react-navigation/native-stack";
+import { NativeStackNavigationEventMap, NativeStackView } from "@react-navigation/native-stack";
 import {
   FlowActionHelpers,
   FlowRouterOptions,
   buildFlowRouter,
 } from "../routers/FlowRouter";
-import { FlowNavigationEventMap, FlowNavigationOptions, FlowNavigationState, FlowNavigatorProps, FlowStackNavigationOptions } from "../types/types";
+import {
+  FlowNavigationEventMap,
+  FlowNavigationOptions,
+  FlowNavigationState,
+  FlowNavigatorProps,
+  FlowStackNavigationOptions,
+} from "../types/types";
 import { FlowContext } from "./FlowContext";
 
 function FlowNavigator({
@@ -26,11 +29,11 @@ function FlowNavigator({
   initialDisabledRoutes,
   ...rest
 }: FlowNavigatorProps) {
-  const parentNavigation = useNavigation()
+  const parentNavigation = useNavigation();
 
   const quitFlow = () => {
-    parentNavigation?.goBack()
-  }
+    parentNavigation?.goBack();
+  };
 
   const { state, descriptors, navigation, NavigationContent } =
     useNavigationBuilder<
