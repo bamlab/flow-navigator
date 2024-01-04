@@ -10,7 +10,16 @@ import {Step32Page} from './steps/Step3/Step3-2Page';
 import {Step4Page} from './steps/Step4/Step4Page';
 import {Step5Page} from './steps/Step5/Step4Page';
 
-const FlowNavigator = createFlowNavigator();
+export type FlowStackParamList = {
+  Step1: undefined;
+  Step2: undefined;
+  Step31: undefined;
+  Step32: undefined;
+  Step4: undefined;
+  Step5: undefined;
+};
+
+const FlowNavigator = createFlowNavigator<FlowStackParamList>();
 
 export const FlowNavigatorExample = () => {
   const {data: hasToPassStep4, isLoading: isStep4Loading} = useQuery(
