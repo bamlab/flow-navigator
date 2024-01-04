@@ -138,10 +138,21 @@ export const buildFlowRouter =
             };
 
           case "DISABLE_ROUTE":
+            // TODO: maybe use getStateForRouteNamesChange
+            const currentRouteName = state.routes[state.routes.length - 1];
+
+            const filteredRoutes = state.routes.filter(
+              (route) => route.name !== action.payload.routeName
+            );
+
             return {
               ...state,
               availableRoutes: state.availableRoutes.filter(
                 (routeName: string) => routeName !== action.payload.routeName
+              ),
+              routes: filteredRoutes,
+              index: filteredRoutes.findIndex(
+                (routeName) => routeName === currentRouteName
               ),
             };
 
