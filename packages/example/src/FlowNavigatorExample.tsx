@@ -37,7 +37,6 @@ export const FlowNavigatorExample = () => {
 
   const initialDisabledRoutes = [
     'Step31',
-    'Step32',
     ...(hasToPassStep4 ? [] : ['Step4']),
   ];
 

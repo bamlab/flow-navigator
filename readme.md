@@ -140,7 +140,8 @@ The flow navigator adds the following methods to the navigation prop:
 - `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
 - `quitFlow`: To exit the flow.
 - `enableRoute`: To enable a route that was disabled. Takes in param the route name to enable.
-- `disableRoute`: To disable a route. Takes in param the route name to disable.
+- `disableRoute`: To disable a route. Takes in param the route name to disable. 
+  - Note that you can't disable a route currently focused on. But you can disable just after you navigated away: check out [this example](packages/example/src/steps/Step3/Step3-2Page.tsx). 
 
 ### useFlowStatus
 Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`, which provides information about the current step of the flow. It contains the following properties:
