@@ -90,7 +90,7 @@ For example, if you want to enable Step2, you can call `enableRoute('Step2')`, t
 ```tsx
 export const Step1Page = () => {
   const {goBack, goToNextStep, enableRoute} =
-    useNavigation<FlowNavigationProp<Step1StackParamList>>();
+    useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   const onNextPress = async () => {
     enableRoute('Step31');
