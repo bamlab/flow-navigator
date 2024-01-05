@@ -5,6 +5,7 @@ import {
 
 export interface FlowContext {
   navigationState: NavigationState;
+  currentStepIndex: number;
 }
 
 export const FlowContext = React.createContext<FlowContext>(undefined as any);

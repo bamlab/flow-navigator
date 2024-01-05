@@ -5,11 +5,12 @@ import {FlowInfos} from '../FlowInfos';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 
 export const Step32Page = () => {
-  const {goToPreviousStep, goToNextStep} =
+  const {goToPreviousStep, goToNextStep, disableRoute} =
     useNavigation<FlowNavigationProp<ParamListBase>>();
 
   const onNextPress = () => {
     goToNextStep();
+    disableRoute('Step32');
   };
 
   return (

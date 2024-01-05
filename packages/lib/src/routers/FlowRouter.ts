@@ -46,7 +46,7 @@ export type FlowActionType =
 
 
 export const buildFlowRouter =
-  (quitFlowHelper: () => void, disabledRoutes: string[]) =>
+  (quitFlowHelper: () => void, initialDisabledRoutes: string[]) =>
   (
     options: FlowRouterOptions
   ): Router<
@@ -65,7 +65,7 @@ export const buildFlowRouter =
         const { routeNames } = params;
         const availableRoutes = routeNames.filter(
           (routeName) =>
-            !disabledRoutes.find((disabledRoute) => disabledRoute === routeName)
+            !initialDisabledRoutes.find((disabledRoute) => disabledRoute === routeName)
         );
 
         return {
@@ -138,10 +138,21 @@ export const buildFlowRouter =
             };
 
           case "DISABLE_ROUTE":
+            // TODO: maybe use getStateForRouteNamesChange
+            const currentRouteName = state.routes[state.routes.length - 1];
+
+            const filteredRoutes = state.routes.filter(
+              (route) => route.name !== action.payload.routeName
+            );
+
             return {
               ...state,
               availableRoutes: state.availableRoutes.filter(
                 (routeName: string) => routeName !== action.payload.routeName
+              ),
+              routes: filteredRoutes,
+              index: filteredRoutes.findIndex(
+                (routeName) => routeName === currentRouteName
               ),
             };
 

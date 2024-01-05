@@ -5,16 +5,19 @@ import {
   useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
-import {
-  NativeStackNavigationEventMap,
-  NativeStackView,
-} from "@react-navigation/native-stack";
+import { NativeStackNavigationEventMap, NativeStackView } from "@react-navigation/native-stack";
 import {
   FlowActionHelpers,
   FlowRouterOptions,
   buildFlowRouter,
 } from "../routers/FlowRouter";
-import { FlowNavigationEventMap, FlowNavigationOptions, FlowNavigationState, FlowNavigatorProps, FlowStackNavigationOptions } from "../types/types";
+import {
+  FlowNavigationEventMap,
+  FlowNavigationOptions,
+  FlowNavigationState,
+  FlowNavigatorProps,
+  FlowStackNavigationOptions,
+} from "../types/types";
 import { FlowContext } from "./FlowContext";
 
 function FlowNavigator({
@@ -23,14 +26,14 @@ function FlowNavigator({
   children,
   screenListeners,
   screenOptions,
-  disabledRoutes,
+  initialDisabledRoutes,
   ...rest
 }: FlowNavigatorProps) {
-  const parentNavigation = useNavigation()
+  const parentNavigation = useNavigation();
 
   const quitFlow = () => {
-    parentNavigation?.goBack()
-  }
+    parentNavigation?.goBack();
+  };
 
   const { state, descriptors, navigation, NavigationContent } =
     useNavigationBuilder<
@@ -39,7 +42,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, disabledRoutes), {
+    >(buildFlowRouter(quitFlow, initialDisabledRoutes), {
       id,
       initialRouteName,
       children,
@@ -47,21 +50,36 @@ function FlowNavigator({
       screenOptions,
     });
 
+  /**
+   * In each page, we add the flow context (Just like for useRoute, we have to create one context per route so that each page statically has their values. If we simply added a context above all the screens and deduced the flow values from useNavigation, the values would change before the navigation animation is completed.)
+   * We see two other ways this could be done without needing to mutate an object like that:
+   * - Add the context inside NativeStackView, just like NavigationRouteContext, but we didn't want to duplicate too much of the code of the stack navigator.
+   * - Calculate flow values from useNavigation and useRoute (state from useNavigation, current route index from useRoute). The code would be very straitfoward, but the progress indicator would be incorrect for subnavigators. Supporting subnavigators would lead to a code that didn't seem much better than those next few lines to us.
+   */
+  Object.entries(descriptors).forEach(([_, descriptor], index) => {
+    const render = descriptor.render;
+
+    descriptor.render = () => (
+      <FlowContext.Provider
+        value={{
+          navigationState: state,
+          currentStepIndex: index,
+        }}
+      >
+        {render()}
+      </FlowContext.Provider>
+    );
+  });
+
   return (
-    <FlowContext.Provider
-      value={{
-        navigationState: state,
-      }}
-    >
-      <NavigationContent>
-        <NativeStackView
-          {...rest}
-          state={state}
-          navigation={navigation}
-          descriptors={descriptors}
-        />
-      </NavigationContent>
-    </FlowContext.Provider>
+    <NavigationContent>
+      <NativeStackView
+        {...rest}
+        state={state}
+        navigation={navigation}
+        descriptors={descriptors}
+      />
+    </NavigationContent>
   );
 }
 

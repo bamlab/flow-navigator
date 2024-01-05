@@ -2,12 +2,12 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {FlowNavigationProp} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
+import {FlowStackParamList} from '../../FlowNavigatorExample';
 
 export const Step22Page = () => {
   const {goBack, goToNextStep, enableRoute} =
-    useNavigation<FlowNavigationProp<Step2StackParamList>>();
+    useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   const onNextPress = async () => {
     enableRoute('Step31');
