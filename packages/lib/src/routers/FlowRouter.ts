@@ -15,8 +15,6 @@ export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goToNextStep(): void;
   goToPreviousStep(): void;
   quitFlow(): void;
-  enableRoute(routeName: Extract<keyof ParamList, string>): void;
-  disableRoute(routeName: Extract<keyof ParamList, string>): void;
   setStoreState(formState: FormState): void;
 } & StackActionHelpers<ParamList>;
 
@@ -33,16 +31,6 @@ export type FlowActionType =
   | {
       type: "QUIT_FLOW";
       source?: string;
-    }
-  | {
-      type: "ENABLE_ROUTE";
-      source?: string;
-      payload: { routeName: Extract<keyof ParamListBase, string> };
-    }
-  | {
-      type: "DISABLE_ROUTE";
-      source?: string;
-      payload: { routeName: Extract<keyof ParamListBase, string> };
     }
   | {
       type: "SET_STORE_STATE";
@@ -141,43 +129,6 @@ export const buildFlowRouter =
 
             return state;
 
-          case "ENABLE_ROUTE":
-            const notOrdonnedAvailableRoutes = [
-              ...state.availableRoutes,
-              action.payload.routeName,
-            ];
-
-            const newAvailableRoutes = state.routeNames.filter(
-              (routeName: string) =>
-                notOrdonnedAvailableRoutes.find(
-                  (newAvailableRoute) => routeName === newAvailableRoute
-                )
-            );
-
-            return {
-              ...state,
-              availableRoutes: newAvailableRoutes,
-            };
-
-          case "DISABLE_ROUTE":
-            // TODO: maybe use getStateForRouteNamesChange
-            const currentRouteName = state.routes[state.routes.length - 1];
-
-            const filteredRoutes = state.routes.filter(
-              (route) => route.name !== action.payload.routeName
-            );
-
-            return {
-              ...state,
-              availableRoutes: state.availableRoutes.filter(
-                (routeName: string) => routeName !== action.payload.routeName
-              ),
-              routes: filteredRoutes,
-              index: filteredRoutes.findIndex(
-                (routeName) => routeName === currentRouteName
-              ),
-            };
-
           case "SET_STORE_STATE":
             const newFormState = {
               ...state.formState,
@@ -234,12 +185,6 @@ export const buildFlowRouter =
         },
         quitFlow: () => {
           return { type: "QUIT_FLOW" };
-        },
-        enableRoute: (routeName) => {
-          return { type: "ENABLE_ROUTE", payload: { routeName } };
-        },
-        disableRoute: (routeName) => {
-          return { type: "DISABLE_ROUTE", payload: { routeName } };
         },
         setStoreState: (formState) => {
           return { type: "SET_STORE_STATE", payload: { formState } };
