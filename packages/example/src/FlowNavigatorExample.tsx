@@ -35,15 +35,23 @@ export const FlowNavigatorExample = () => {
     );
   }
 
-  const initialDisabledRoutes = [
-    'Step31',
-    ...(hasToPassStep4 ? [] : ['Step4']),
-  ];
+  const initialFlowState = {
+    myValue31: false,
+    myValue4: hasToPassStep4,
+  };
+
+  type FlowState = typeof initialFlowState;
+
+  const config = {
+    Step31: (flowState: FlowState) => flowState.myValue31,
+    Step4: (flowState: FlowState) => flowState.myValue4,
+  };
 
   return (
     <FlowNavigator.Navigator
       screenOptions={{headerShown: false}}
-      initialDisabledRoutes={initialDisabledRoutes}>
+      config={config}
+      initialFlowState={initialFlowState}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
       <FlowNavigator.Group>
