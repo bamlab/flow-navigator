@@ -35,23 +35,23 @@ export const FlowNavigatorExample = () => {
     );
   }
 
-  const initialFormState = {
+  const initialFlowState = {
     myValue31: false,
     myValue4: hasToPassStep4,
   };
 
-  type FormState = typeof initialFormState;
+  type FlowState = typeof initialFlowState;
 
   const config = {
-    Step31: (formState: FormState) => formState.myValue31,
-    Step4: (formState: FormState) => formState.myValue4,
+    Step31: (flowState: FlowState) => flowState.myValue31,
+    Step4: (flowState: FlowState) => flowState.myValue4,
   };
 
   return (
     <FlowNavigator.Navigator
       screenOptions={{headerShown: false}}
       config={config}
-      initialFormState={initialFormState}>
+      initialFlowState={initialFlowState}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
       <FlowNavigator.Group>

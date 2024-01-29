@@ -30,7 +30,7 @@ function FlowNavigator({
   screenListeners,
   screenOptions,
   config,
-  initialFormState,
+  initialFlowState,
   ...rest
 }: FlowNavigatorProps) {
   const parentNavigation = useNavigation();
@@ -46,7 +46,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, { config, initialFormState }), {
+    >(buildFlowRouter(quitFlow, { config, initialFlowState }), {
       id,
       initialRouteName,
       children,

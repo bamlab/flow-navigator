@@ -44,15 +44,15 @@ export type FlowNavigationProp<
 export type FlowNavigationState<ParamList extends ParamListBase> =
   NavigationState<ParamList> & {
     availableRoutes: Extract<keyof ParamList, string>[];
-    formState: FormState;
+    flowState: FlowState;
     // type: "flow"; : TODO add flow type and key
   };
 
 export type Config<ParamList = ParamListBase> = {
-  [k in Partial<keyof ParamList>]: (formState: FormState) => boolean;
+  [k in Partial<keyof ParamList>]: (flowState: FlowState) => boolean;
 };
 
-export type FormState = Object;
+export type FlowState = Object;
 
 export type FlowNavigatorProps = DefaultNavigatorOptions<
   ParamListBase,
@@ -63,7 +63,7 @@ export type FlowNavigatorProps = DefaultNavigatorOptions<
   StackRouterOptions &
   NativeStackNavigationConfig & {
     config: Config<ParamListBase>;
-    initialFormState: FormState;
+    initialFlowState: FlowState;
   };
 
 export type FlowStackNavigationOptions = NativeStackNavigationOptions & {
