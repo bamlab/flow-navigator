@@ -5,7 +5,10 @@ import {
   useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
-import { NativeStackNavigationEventMap, NativeStackView } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationEventMap,
+  NativeStackView,
+} from "@react-navigation/native-stack";
 import {
   FlowActionHelpers,
   FlowRouterOptions,
@@ -26,7 +29,8 @@ function FlowNavigator({
   children,
   screenListeners,
   screenOptions,
-  initialDisabledRoutes,
+  config,
+  initialFormState,
   ...rest
 }: FlowNavigatorProps) {
   const parentNavigation = useNavigation();
@@ -42,7 +46,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, initialDisabledRoutes), {
+    >(buildFlowRouter(quitFlow, { config, initialFormState }), {
       id,
       initialRouteName,
       children,

@@ -6,11 +6,13 @@ import {FlowInfos} from '../FlowInfos';
 import {FlowStackParamList} from '../../FlowNavigatorExample';
 
 export const Step22Page = () => {
-  const {goBack, goToNextStep, enableRoute} =
+  const {goBack, goToNextStep, setStoreState} =
     useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   const onNextPress = async () => {
-    enableRoute('Step31');
+    setStoreState({
+      myValue31: true,
+    });
     goToNextStep();
   };
 

@@ -7,7 +7,7 @@ import {
   StackRouter,
   StackRouterOptions,
 } from "@react-navigation/native";
-import { FlowNavigationState } from "../types/types";
+import { Config, FlowNavigationState, FormState } from "../types/types";
 
 export type FlowRouterOptions = StackRouterOptions;
 
@@ -17,6 +17,7 @@ export type FlowActionHelpers<ParamList extends ParamListBase> = {
   quitFlow(): void;
   enableRoute(routeName: Extract<keyof ParamList, string>): void;
   disableRoute(routeName: Extract<keyof ParamList, string>): void;
+  setStoreState(formState: FormState): void;
 } & StackActionHelpers<ParamList>;
 
 export type FlowActionType =
@@ -42,11 +43,21 @@ export type FlowActionType =
       type: "DISABLE_ROUTE";
       source?: string;
       payload: { routeName: Extract<keyof ParamListBase, string> };
+    }
+  | {
+      type: "SET_STORE_STATE";
+      source?: string;
+      payload: { formState: Object };
     };
 
-
 export const buildFlowRouter =
-  (quitFlowHelper: () => void, initialDisabledRoutes: string[]) =>
+  (
+    quitFlowHelper: () => void,
+    {
+      config,
+      initialFormState,
+    }: { config: Config<ParamListBase>; initialFormState: FormState }
+  ) =>
   (
     options: FlowRouterOptions
   ): Router<
@@ -63,14 +74,24 @@ export const buildFlowRouter =
 
       getInitialState(params) {
         const { routeNames } = params;
+
+        const disabledRouteNames = Object.entries(config)
+          .filter(([_, isRouteNameEnabledCb]) => {
+            return !isRouteNameEnabledCb(initialFormState);
+          })
+          .map(([routeName]) => routeName);
+
         const availableRoutes = routeNames.filter(
           (routeName) =>
-            !initialDisabledRoutes.find((disabledRoute) => disabledRoute === routeName)
+            !disabledRouteNames.find(
+              (disabledRoute) => disabledRoute === routeName
+            )
         );
 
         return {
           ...router.getInitialState(params),
           availableRoutes,
+          formState: initialFormState,
         };
       },
 
@@ -126,10 +147,11 @@ export const buildFlowRouter =
               action.payload.routeName,
             ];
 
-            const newAvailableRoutes = state.routeNames.filter((routeName: string) =>
-              notOrdonnedAvailableRoutes.find(
-                (newAvailableRoute) => routeName === newAvailableRoute
-              )
+            const newAvailableRoutes = state.routeNames.filter(
+              (routeName: string) =>
+                notOrdonnedAvailableRoutes.find(
+                  (newAvailableRoute) => routeName === newAvailableRoute
+                )
             );
 
             return {
@@ -156,6 +178,48 @@ export const buildFlowRouter =
               ),
             };
 
+          case "SET_STORE_STATE":
+            const newFormState = {
+              ...state.formState,
+              ...action.payload.formState,
+            };
+
+            const disabledRouteNames = Object.entries(config)
+              .filter(([_, isRouteNameEnabledCb]) => {
+                return !isRouteNameEnabledCb(newFormState);
+              })
+              .map(([routeName]) => routeName);
+
+            const availableRoutes = state.routeNames.filter(
+              (routeName) =>
+                !disabledRouteNames.find(
+                  (disabledRoute) => disabledRoute === routeName
+                )
+            );
+
+            const builtRemovedRoute = disabledRouteNames.filter(
+              (disabledRoute) =>
+                state.routes.some((route) => route.name === disabledRoute)
+            );
+
+            const newRoutes = state.routes.filter(
+              (route) =>
+                !builtRemovedRoute.some(
+                  (builtRemovedRoute) => builtRemovedRoute === route.name
+                )
+            );
+
+            return {
+              ...state,
+              formState: {
+                ...state.formState,
+                ...action.payload.formState,
+              },
+              index: state.index - builtRemovedRoute.length,
+              availableRoutes,
+              routes: newRoutes,
+            };
+
           default:
             return router.getStateForAction(state, action, options);
         }
@@ -172,10 +236,13 @@ export const buildFlowRouter =
           return { type: "QUIT_FLOW" };
         },
         enableRoute: (routeName) => {
-          return { type: "ENABLE_ROUTE", payload: {routeName} };
+          return { type: "ENABLE_ROUTE", payload: { routeName } };
         },
         disableRoute: (routeName) => {
-          return { type: "DISABLE_ROUTE", payload: {routeName} };
+          return { type: "DISABLE_ROUTE", payload: { routeName } };
+        },
+        setStoreState: (formState) => {
+          return { type: "SET_STORE_STATE", payload: { formState } };
         },
       },
     };

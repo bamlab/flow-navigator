@@ -3,22 +3,22 @@ import {FlowNavigationProp} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {useQueryClient, useMutation} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 import {postPassedStep4} from '../../queries/hasToPassStep4';
 
 export const Step4Page = () => {
-  const {goToPreviousStep, goToNextStep, disableRoute} =
+  const {goToPreviousStep, goToNextStep, setStoreState} =
     useNavigation<FlowNavigationProp<ParamListBase>>();
 
-  const queryClient = useQueryClient();
   const {mutate: setHasToPassStep2ToOff} = useMutation(
     ['postHasToPassStep4'],
     postPassedStep4,
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['hasToPassStep4']);
+      onSuccess: value => {
         goToNextStep();
-        disableRoute('Step4');
+        setStoreState({
+          myValue4: value,
+        });
       },
     },
   );
