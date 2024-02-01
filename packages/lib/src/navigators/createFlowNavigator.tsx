@@ -1,11 +1,15 @@
 import * as React from "react";
 import {
   createNavigatorFactory,
+  NavigationContext,
   ParamListBase,
   useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
-import { NativeStackNavigationEventMap, NativeStackView } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationEventMap,
+  NativeStackView,
+} from "@react-navigation/native-stack";
 import {
   FlowActionHelpers,
   FlowRouterOptions,
@@ -19,6 +23,8 @@ import {
   FlowStackNavigationOptions,
 } from "../types/types";
 import { FlowContext } from "./FlowContext";
+import { StaticContainer } from "./fork/descriptorRender";
+import { getRouteConfigsFromChildren } from "./fork/getRouteNames";
 
 function FlowNavigator({
   id,
@@ -26,7 +32,6 @@ function FlowNavigator({
   children,
   screenListeners,
   screenOptions,
-  initialDisabledRoutes,
   ...rest
 }: FlowNavigatorProps) {
   const parentNavigation = useNavigation();
@@ -42,7 +47,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, initialDisabledRoutes), {
+    >(buildFlowRouter(quitFlow), {
       id,
       initialRouteName,
       children,
@@ -50,34 +55,85 @@ function FlowNavigator({
       screenOptions,
     });
 
-  /**
-   * In each page, we add the flow context (Just like for useRoute, we have to create one context per route so that each page statically has their values. If we simply added a context above all the screens and deduced the flow values from useNavigation, the values would change before the navigation animation is completed.)
-   * We see two other ways this could be done without needing to mutate an object like that:
-   * - Add the context inside NativeStackView, just like NavigationRouteContext, but we didn't want to duplicate too much of the code of the stack navigator.
-   * - Calculate flow values from useNavigation and useRoute (state from useNavigation, current route index from useRoute). The code would be very straitfoward, but the progress indicator would be incorrect for subnavigators. Supporting subnavigators would lead to a code that didn't seem much better than those next few lines to us.
-   */
-  Object.entries(descriptors).forEach(([_, descriptor], index) => {
-    const render = descriptor.render;
+  const routeConfigs = getRouteConfigsFromChildren<
+    State,
+    ScreenOptions,
+    EventMap
+  >(children);
 
-    descriptor.render = () => (
-      <FlowContext.Provider
-        value={{
-          navigationState: state,
-          currentStepIndex: index,
-        }}
-      >
-        {render()}
-      </FlowContext.Provider>
-    );
-  });
+  // routeNames are calculated twice
+  const screens = routeConfigs.reduce<
+    Record<string, ScreenConfigWithParent<State, ScreenOptions, EventMap>>
+  >((acc, config) => {
+    if (config.props.name in acc) {
+      throw new Error(
+        `A navigator cannot contain multiple 'Screen' components with the same name (found duplicate screen named '${config.props.name}')`
+      );
+    }
+
+    acc[config.props.name] = config;
+    return acc;
+  }, {});
+
+  const routes = state.routeNames
+    .slice(0, state.flowIndex + 1)
+    .map((route) => ({
+      key: `route${route}`,
+      name: route,
+    }));
+
+  // descriptors is calculated twice
+  const newDescriptors = routes.reduce((acc, route, i) => {
+    acc[route.key] = {
+      navigation,
+      route,
+      render: () => {
+        const config = screens[route.name];
+        const screen = config.props;
+
+        const ScreenComponent = screen.getComponent
+          ? screen.getComponent()
+          : screen.component;
+
+        // TODO: Make sure other components from original render are not useful
+        return (
+          <NavigationContext.Provider value={navigation}>
+            <FlowContext.Provider
+              value={{
+                navigationState: state,
+                currentStepIndex: i,
+              }}
+            >
+              <StaticContainer
+                name={screen.name}
+                render={ScreenComponent || screen.children}
+                navigation={navigation}
+                route={route}
+              >
+                {ScreenComponent !== undefined ? (
+                  <ScreenComponent navigation={navigation} route={route} />
+                ) : screen.children !== undefined ? (
+                  screen.children({ navigation, route })
+                ) : null}
+              </StaticContainer>
+            </FlowContext.Provider>
+          </NavigationContext.Provider>
+        );
+      },
+      options: {},
+    };
+    return acc;
+  }, {});
+
+  const newState = { ...state, routes };
 
   return (
     <NavigationContent>
       <NativeStackView
         {...rest}
-        state={state}
+        state={newState}
         navigation={navigation}
-        descriptors={descriptors}
+        descriptors={newDescriptors}
       />
     </NavigationContent>
   );

@@ -4,11 +4,12 @@ import {useQuery} from '@tanstack/react-query';
 import {getHasToPassStep4} from './queries/hasToPassStep4';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {Step1Page} from './steps/Step1/Step1Page';
-import {Step2Navigator} from './steps/Step2/Step2Navigator';
 import {Step31Page} from './steps/Step3/Step3-1Page';
 import {Step32Page} from './steps/Step3/Step3-2Page';
 import {Step4Page} from './steps/Step4/Step4Page';
 import {Step5Page} from './steps/Step5/Step4Page';
+import {atom, useAtom} from 'jotai';
+import {Step22Page} from './steps/Step2/Step2-2Page';
 
 export type FlowStackParamList = {
   Step1: undefined;
@@ -21,7 +22,11 @@ export type FlowStackParamList = {
 
 const FlowNavigator = createFlowNavigator<FlowStackParamList>();
 
+export const show = atom(false);
+
 export const FlowNavigatorExample = () => {
+  const [isShow, _] = useAtom(show);
+
   const {data: hasToPassStep4, isLoading: isStep4Loading} = useQuery(
     ['hasToPassStep4'],
     getHasToPassStep4,
@@ -35,22 +40,17 @@ export const FlowNavigatorExample = () => {
     );
   }
 
-  const initialDisabledRoutes = [
-    'Step31',
-    ...(hasToPassStep4 ? [] : ['Step4']),
-  ];
-
   return (
-    <FlowNavigator.Navigator
-      screenOptions={{headerShown: false}}
-      initialDisabledRoutes={initialDisabledRoutes}>
+    <FlowNavigator.Navigator screenOptions={{headerShown: false}}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
-      <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
+      {isShow && <FlowNavigator.Screen name="Step2" component={Step22Page} />}
       <FlowNavigator.Group>
         <FlowNavigator.Screen name="Step31" component={Step31Page} />
         <FlowNavigator.Screen name="Step32" component={Step32Page} />
       </FlowNavigator.Group>
-      <FlowNavigator.Screen name="Step4" component={Step4Page} />
+      {hasToPassStep4 && (
+        <FlowNavigator.Screen name="Step4" component={Step4Page} />
+      )}
       <FlowNavigator.Screen name="Step5" component={Step5Page} />
     </FlowNavigator.Navigator>
   );

@@ -6,16 +6,15 @@ import {FlowInfos} from '../FlowInfos';
 import {FlowStackParamList} from '../../FlowNavigatorExample';
 
 export const Step22Page = () => {
-  const {goBack, goToNextStep, enableRoute} =
+  const {goToPreviousStep, goToNextStep, navigate} =
     useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   const onNextPress = async () => {
-    enableRoute('Step31');
     goToNextStep();
   };
 
   const onBackPress = () => {
-    goBack();
+    goToPreviousStep();
   };
 
   return (
@@ -24,6 +23,7 @@ export const Step22Page = () => {
       <FlowInfos />
       <Button title="next" onPress={onNextPress} />
       <Button title="back" onPress={onBackPress} />
+      <Button title="go to home" onPress={() => navigate('Home')} />
     </View>
   );
 };

@@ -15,8 +15,6 @@ export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goToNextStep(): void;
   goToPreviousStep(): void;
   quitFlow(): void;
-  enableRoute(routeName: Extract<keyof ParamList, string>): void;
-  disableRoute(routeName: Extract<keyof ParamList, string>): void;
 } & StackActionHelpers<ParamList>;
 
 export type FlowActionType =
@@ -33,20 +31,9 @@ export type FlowActionType =
       type: "QUIT_FLOW";
       source?: string;
     }
-  | {
-      type: "ENABLE_ROUTE";
-      source?: string;
-      payload: { routeName: Extract<keyof ParamListBase, string> };
-    }
-  | {
-      type: "DISABLE_ROUTE";
-      source?: string;
-      payload: { routeName: Extract<keyof ParamListBase, string> };
-    };
-
 
 export const buildFlowRouter =
-  (quitFlowHelper: () => void, initialDisabledRoutes: string[]) =>
+  (quitFlowHelper: () => void) =>
   (
     options: FlowRouterOptions
   ): Router<
@@ -62,53 +49,27 @@ export const buildFlowRouter =
       ...router,
 
       getInitialState(params) {
-        const { routeNames } = params;
-        const availableRoutes = routeNames.filter(
-          (routeName) =>
-            !initialDisabledRoutes.find((disabledRoute) => disabledRoute === routeName)
-        );
-
         return {
           ...router.getInitialState(params),
-          availableRoutes,
+          flowIndex: 0,
         };
       },
 
       getStateForAction(state, action, options) {
         switch (action.type) {
           case "NEXT_STEP":
-            const nextStepRouteName = state.availableRoutes[state.index + 1];
-
-            if (!nextStepRouteName) {
-              return null;
-            }
-
-            return router.getStateForAction(
-              state,
-              {
-                type: "NAVIGATE",
-                source: action.source,
-                payload: { name: nextStepRouteName },
-              },
-              options
-            );
+            // TODO: handle case can't go next
+            return {
+              ...state,
+              flowIndex: state.flowIndex + 1, // changing index didn't work, didn't search why
+            };
 
           case "BACK_STEP":
-            const previousRouteName = state.availableRoutes[state.index - 1];
-
-            if (!previousRouteName) {
-              return null;
-            }
-
-            return router.getStateForAction(
-              state,
-              {
-                type: "NAVIGATE",
-                source: action.source,
-                payload: { name: previousRouteName },
-              },
-              options
-            );
+            // TODO: handle case can't go previous
+            return {
+              ...state,
+              flowIndex: state.flowIndex - 1,
+            };
 
           case "QUIT_FLOW":
             /**
@@ -119,47 +80,33 @@ export const buildFlowRouter =
             quitFlowHelper();
 
             return state;
-
-          case "ENABLE_ROUTE":
-            const notOrdonnedAvailableRoutes = [
-              ...state.availableRoutes,
-              action.payload.routeName,
-            ];
-
-            const newAvailableRoutes = state.routeNames.filter((routeName: string) =>
-              notOrdonnedAvailableRoutes.find(
-                (newAvailableRoute) => routeName === newAvailableRoute
-              )
-            );
-
-            return {
-              ...state,
-              availableRoutes: newAvailableRoutes,
-            };
-
-          case "DISABLE_ROUTE":
-            // TODO: maybe use getStateForRouteNamesChange
-            const currentRouteName = state.routes[state.routes.length - 1];
-
-            const filteredRoutes = state.routes.filter(
-              (route) => route.name !== action.payload.routeName
-            );
-
-            return {
-              ...state,
-              availableRoutes: state.availableRoutes.filter(
-                (routeName: string) => routeName !== action.payload.routeName
-              ),
-              routes: filteredRoutes,
-              index: filteredRoutes.findIndex(
-                (routeName) => routeName === currentRouteName
-              ),
-            };
-
           default:
             return router.getStateForAction(state, action, options);
         }
       },
+
+      getStateForRouteNamesChange(
+        state,
+        { routeNames }
+      ) {
+        // TODO: handle edge cases, like if there are no routes left
+        const builtRoutes = state.routeNames.slice(0, state.flowIndex)
+
+        const removedRoutes = state.routeNames.filter(routeName => !routeNames.includes(routeName) && builtRoutes.includes(routeName))
+
+        let newFlowIndex = state.flowIndex;
+        
+        if(removedRoutes.length >0){
+          newFlowIndex = newFlowIndex - 1
+        }
+
+        return {
+          ...state,
+          routeNames,
+          flowIndex: newFlowIndex,
+        };
+      },
+      
       actionCreators: {
         ...router.actionCreators,
         goToNextStep: () => {
@@ -170,12 +117,6 @@ export const buildFlowRouter =
         },
         quitFlow: () => {
           return { type: "QUIT_FLOW" };
-        },
-        enableRoute: (routeName) => {
-          return { type: "ENABLE_ROUTE", payload: {routeName} };
-        },
-        disableRoute: (routeName) => {
-          return { type: "DISABLE_ROUTE", payload: {routeName} };
         },
       },
     };
