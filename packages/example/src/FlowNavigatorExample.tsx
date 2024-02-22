@@ -9,19 +9,14 @@ import {Step31Page} from './steps/Step3/Step3-1Page';
 import {Step32Page} from './steps/Step3/Step3-2Page';
 import {Step4Page} from './steps/Step4/Step4Page';
 import {Step5Page} from './steps/Step5/Step4Page';
+import {hasToPassStep3Atom} from './globalStates/hasToPassStep3';
+import {useAtom} from 'jotai';
 
-export type FlowStackParamList = {
-  Step1: undefined;
-  Step2: undefined;
-  Step31: undefined;
-  Step32: undefined;
-  Step4: undefined;
-  Step5: undefined;
-};
-
-const FlowNavigator = createFlowNavigator<FlowStackParamList>();
+const FlowNavigator = createFlowNavigator();
 
 export const FlowNavigatorExample = () => {
+  const [hasToPassStep3] = useAtom(hasToPassStep3Atom);
+
   const {data: hasToPassStep4, isLoading: isStep4Loading} = useQuery(
     ['hasToPassStep4'],
     getHasToPassStep4,
@@ -35,22 +30,19 @@ export const FlowNavigatorExample = () => {
     );
   }
 
-  const initialDisabledRoutes = [
-    'Step31',
-    ...(hasToPassStep4 ? [] : ['Step4']),
-  ];
-
   return (
-    <FlowNavigator.Navigator
-      screenOptions={{headerShown: false}}
-      initialDisabledRoutes={initialDisabledRoutes}>
+    <FlowNavigator.Navigator screenOptions={{headerShown: false}}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Navigator} />
-      <FlowNavigator.Group>
-        <FlowNavigator.Screen name="Step31" component={Step31Page} />
-        <FlowNavigator.Screen name="Step32" component={Step32Page} />
-      </FlowNavigator.Group>
-      <FlowNavigator.Screen name="Step4" component={Step4Page} />
+      {hasToPassStep3 && (
+        <FlowNavigator.Group>
+          <FlowNavigator.Screen name="Step31" component={Step31Page} />
+          <FlowNavigator.Screen name="Step32" component={Step32Page} />
+        </FlowNavigator.Group>
+      )}
+      {hasToPassStep4 && (
+        <FlowNavigator.Screen name="Step4" component={Step4Page} />
+      )}
       <FlowNavigator.Screen name="Step5" component={Step5Page} />
     </FlowNavigator.Navigator>
   );

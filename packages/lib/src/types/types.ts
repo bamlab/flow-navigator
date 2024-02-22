@@ -43,7 +43,6 @@ export type FlowNavigationProp<
 
 export type FlowNavigationState<ParamList extends ParamListBase> =
   NavigationState<ParamList> & {
-    availableRoutes: Extract<keyof ParamList, string>[];
     // type: "flow"; : TODO add flow type and key
   };
 
@@ -54,10 +53,6 @@ export type FlowNavigatorProps = DefaultNavigatorOptions<
   NativeStackNavigationEventMap
 > &
   StackRouterOptions &
-  NativeStackNavigationConfig & {
-    initialDisabledRoutes: Extract<keyof ParamListBase, string>[];
-  };
+  NativeStackNavigationConfig
 
-export type FlowStackNavigationOptions = NativeStackNavigationOptions & {
-  disabledRoutes?: Extract<keyof ParamListBase, string>[];
-};
+export type FlowStackNavigationOptions = NativeStackNavigationOptions
