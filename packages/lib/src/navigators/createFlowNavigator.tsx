@@ -2,22 +2,23 @@ import * as React from "react";
 import {
   createNavigatorFactory,
   ParamListBase,
+  StackNavigationState,
   useNavigation,
   useNavigationBuilder,
 } from "@react-navigation/native";
-import { NativeStackNavigationEventMap, NativeStackView } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationOptions,
+  NativeStackNavigationEventMap,
+  NativeStackView,
+} from "@react-navigation/native-stack";
+import { NativeStackNavigatorProps } from "@react-navigation/native-stack/lib/typescript/src/types";
 import {
   FlowActionHelpers,
+  FlowNavigationState,
   FlowRouterOptions,
   buildFlowRouter,
 } from "../routers/FlowRouter";
-import {
-  FlowNavigationEventMap,
-  FlowNavigationOptions,
-  FlowNavigationState,
-  FlowNavigatorProps,
-  FlowStackNavigationOptions,
-} from "../types/types";
+import { FlowNavigationEventMap, FlowNavigationOptions } from "../types/types";
 import { FlowContext } from "./FlowContext";
 
 function FlowNavigator({
@@ -26,9 +27,8 @@ function FlowNavigator({
   children,
   screenListeners,
   screenOptions,
-  initialDisabledRoutes,
   ...rest
-}: FlowNavigatorProps) {
+}: NativeStackNavigatorProps) {
   const parentNavigation = useNavigation();
 
   const quitFlow = () => {
@@ -42,7 +42,7 @@ function FlowNavigator({
       FlowActionHelpers<ParamListBase>,
       FlowNavigationOptions,
       FlowNavigationEventMap
-    >(buildFlowRouter(quitFlow, initialDisabledRoutes), {
+    >(buildFlowRouter(quitFlow), {
       id,
       initialRouteName,
       children,
@@ -84,8 +84,8 @@ function FlowNavigator({
 }
 
 export const createFlowNavigator = createNavigatorFactory<
-  FlowNavigationState<ParamListBase>,
-  FlowStackNavigationOptions,
+  StackNavigationState<ParamListBase>,
+  NativeStackNavigationOptions,
   NativeStackNavigationEventMap,
   typeof FlowNavigator
 >(FlowNavigator);
