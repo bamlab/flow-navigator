@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {FlowNavigationProp} from '@bam.tech/flow-navigator';
+import {FlowNavigationProp, useFlowStatus} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
@@ -8,8 +8,8 @@ import {useAtom} from 'jotai';
 import {hasToPassStep3Atom} from '../../globalStates/hasToPassStep3';
 
 export const Step22Page = () => {
-  const {goBack, goToNextStep} =
-    useNavigation<FlowNavigationProp<Step2StackParamList>>();
+  const {goBack} = useNavigation<FlowNavigationProp<Step2StackParamList>>();
+  const {goToNextStep} = useFlowStatus();
 
   const [_, setHasToPassStep3] = useAtom(hasToPassStep3Atom);
 
