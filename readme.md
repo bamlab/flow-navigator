@@ -65,20 +65,22 @@ You can find a fully working example in the [example](./example/App.tsx) folder.
 
 In certain scenarios, a flow may include steps that are conditional. These steps might be dependent on user-specific conditions or based on whether certain actions have already been completed. You can manage such conditional steps declaratively in your navigation flow.
 
-Here's an example where "Step 2" is conditionally displayed based on the hasToPassStep2 variable. This variable could be a piece of data fetched from the backend or a state within your application.
+Here's an example where "Step 2" is conditionally displayed based on the hasToPassStep2 variable. This variable could be a piece of data fetched from the backend or a state within your application. In our case, we use jotai to store our user data locally.
 
 ```tsx
 import { createFlowNavigator } from '@bam.tech/flow-navigator';
 
+export const flagAtom = atom(false);
+
 const FlowNavigator = createFlowNavigator();
 
 export const FlowNavigatorExample = () => {
-  const hasToPassStep2 = /* your condition here */;
+  const [flag] = useAtom(flagAtom);
 
   return (
     <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
-      {hasToPassStep2 && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
+      {flag && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
       <FlowNavigator.Screen name="Step3" component={Step3Page} />
     </FlowNavigator.Navigator>
   );
@@ -86,6 +88,34 @@ export const FlowNavigatorExample = () => {
 ```
 
 In this example, the Step2 screen is only included in the flow if hasToPassStep2 evaluates to true.
+
+You can enable or disable routes at anytime in your flow by setting your boolean state: `setFlag(false)`
+
+```tsx
+export const Step1Page = () => {
+  const {goBack, goToNextStep} =
+    useNavigation<FlowNavigationProp<FlowStackParamList>>();
+  const [flag] = useAtom(flagAtom);
+
+  const onNextPress = async () => {
+    setFlag(false);
+    goToNextStep();
+  };
+
+  const onBackPress = () => {
+    goBack();
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.pageTitle}>Current page: 1</Text>
+      <FlowInfos />
+      <Button title="next" onPress={onNextPress} />
+      <Button title="back" onPress={onBackPress} />
+    </View>
+  );
+};
+```
 
 You can check out a fully working example in the [example](./example/src/FlowNavigatorExample.tsx) folder
 
