@@ -63,9 +63,9 @@ You can find a fully working example in the [example](./example/App.tsx) folder.
 
 ### Define conditional steps
 
-In certain scenarios, a flow may include steps that are conditional. These steps might be dependent on user-specific conditions or based on whether certain actions have already been completed.
+In certain scenarios, a flow may include steps that are conditional. These steps might be dependent on user-specific conditions or based on whether certain actions have already been completed. You can manage such conditional steps declaratively in your navigation flow.
 
-Here's an example where "Step 2" is initially disabled.
+Here's an example where "Step 2" is conditionally displayed based on the hasToPassStep2 variable. This variable could be a piece of data fetched from the backend or a state within your application.
 
 ```tsx
 import { createFlowNavigator } from '@bam.tech/flow-navigator';
@@ -73,8 +73,10 @@ import { createFlowNavigator } from '@bam.tech/flow-navigator';
 const FlowNavigator = createFlowNavigator();
 
 export const FlowNavigatorExample = () => {
+  const hasToPassStep2 = /* your condition here */;
+
   return (
-    <FlowNavigator.Navigator initialDisabledRoutes={["Step2"]}>
+    <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       {hasToPassStep2 && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
       <FlowNavigator.Screen name="Step3" component={Step3Page} />
@@ -83,36 +85,9 @@ export const FlowNavigatorExample = () => {
 };
 ```
 
-You can enable and disable routes at anytime using the helpers `enableRoute` and `disableRoute` from `useNavigation`. Please note that you have to be inside a flow navigator to access those helpers.
+In this example, the Step2 screen is only included in the flow if hasToPassStep2 evaluates to true.
 
-For example, if you want to enable Step2, you can call `enableRoute('Step2')`, this way:
-
-```tsx
-export const Step1Page = () => {
-  const {goBack, goToNextStep, enableRoute} =
-    useNavigation<FlowNavigationProp<FlowStackParamList>>();
-
-  const onNextPress = async () => {
-    enableRoute('Step31');
-    goToNextStep();
-  };
-
-  const onBackPress = () => {
-    goBack();
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.pageTitle}>Current page: 1</Text>
-      <FlowInfos />
-      <Button title="next" onPress={onNextPress} />
-      <Button title="back" onPress={onBackPress} />
-    </View>
-  );
-};
-```
-
-You can check out a fully working example in the [example](./packages/example/src/FlowNavigatorExample.tsx) folder
+You can check out a fully working example in the [example](./example/src/FlowNavigatorExample.tsx) folder
 
 ### Define steps with several screens
 
@@ -139,10 +114,7 @@ The flow navigator adds the following methods to the navigation prop:
 - `goToNextStep`: To navigate to the next step in the flow, based on the order of the screens in the navigation flow.
 - `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
 - `quitFlow`: To exit the flow.
-- `enableRoute`: To enable a route that was disabled. Takes in param the route name to enable.
-- `disableRoute`: To disable a route. Takes in param the route name to disable. 
-  - Note that you can't disable a route currently focused on. But you can disable just after you navigated away: check out [this example](packages/example/src/steps/Step3/Step3-2Page.tsx). 
-
+- 
 ### useFlow
 Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides information about the current step of the flow. It contains the following properties:
 
