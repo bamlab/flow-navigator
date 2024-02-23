@@ -1,6 +1,6 @@
 {
   "name": "@bam.tech/flow-navigator",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A flow navigator for react-navigation",
   "private": true,
   "main": "dist/index.js",
