@@ -92,9 +92,10 @@ In this example, the Step2 screen is only included in the flow if hasToPassStep2
 You can enable or disable routes at anytime in your flow by setting your boolean state: `setFlag(false)`
 
 ```tsx
+import { useFlow } from '@bam.tech/flow-navigator';
+
 export const Step1Page = () => {
-  const {goBack, goToNextStep} =
-    useNavigation<FlowNavigationProp<FlowStackParamList>>();
+  const {goBack, goToNextStep} = useFlow();
   const [flag] = useAtom(flagAtom);
 
   const onNextPress = async () => {
@@ -138,15 +139,15 @@ Flows are sequences of pages with a pre-defined order, guiding users through a s
 
 ### FlowNavigator
 The Flow Navigator is built upon the foundation of the [native stack](https://reactnavigation.org/docs/native-stack-navigator/#api-definition), it inherits the same API.
-
-#### Helpers
-The flow navigator adds the following methods to the navigation prop:
+- 
+### useFlow
+Inside a screen defined below a Flow Navigator, you can use the `useFlow`
+`useFlow` provides the following helpers:
 - `goToNextStep`: To navigate to the next step in the flow, based on the order of the screens in the navigation flow.
 - `goToPreviousStep`: To navigate to the previous step in the flow, based on the order of the screens in the navigation flow.
 - `quitFlow`: To exit the flow.
-- 
-### useFlow
-Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides information about the current step of the flow. It contains the following properties:
+
+`useFlow` also provides information about the current step of the flow. It contains the following properties:
 
 - `currentStep`: A string representing the identifier of the current step in the flow. Based on the name of the screen.
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.

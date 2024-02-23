@@ -11,7 +11,6 @@ import {
   NativeStackNavigationEventMap,
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
-import { FlowActionHelpers } from "../routers/FlowRouter";
 import { NativeStackNavigationConfig } from "@react-navigation/native-stack/lib/typescript/src/types";
 
 export type FlowNavigationOptions = NativeStackNavigationOptions;
@@ -38,8 +37,7 @@ export type FlowNavigationProp<
   StackNavigationState<ParamList>,
   FlowNavigationOptions,
   FlowNavigationEventMap
-> &
-  FlowActionHelpers<ParamList>;
+>
 
 export type FlowNavigationState<ParamList extends ParamListBase> =
   NavigationState<ParamList> & {
