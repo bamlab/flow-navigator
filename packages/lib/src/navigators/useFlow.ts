@@ -3,7 +3,7 @@ import { FlowContext } from "./FlowContext";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { FlowActionHelpers } from "../routers/FlowRouter";
 
-export const useFlowStatus = () => {
+export const useFlow = () => {
   const { navigationState, currentStepIndex } = useContext(FlowContext);
 
   const { goToNextStep, goToPreviousStep, quitFlow } = useFlowHelpers();

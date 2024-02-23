@@ -1,12 +1,12 @@
 import React from 'react';
-import {useFlowStatus} from '@bam.tech/flow-navigator';
+import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 import {useQueryClient, useMutation} from '@tanstack/react-query';
 import {postPassedStep4} from '../../queries/hasToPassStep4';
 
 export const Step4Page = () => {
-  const {goToPreviousStep, goToNextStep} = useFlowStatus();
+  const {goToPreviousStep, goToNextStep} = useFlow();
 
   const queryClient = useQueryClient();
   const {mutate: setHasToPassStep2ToOff} = useMutation(

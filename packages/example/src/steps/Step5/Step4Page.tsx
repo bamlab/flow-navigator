@@ -1,10 +1,10 @@
 import React from 'react';
-import {useFlowStatus} from '@bam.tech/flow-navigator';
+import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 
 export const Step5Page = () => {
-  const {goToPreviousStep} = useFlowStatus();
+  const {goToPreviousStep} = useFlow();
 
   return (
     <View style={styles.container}>

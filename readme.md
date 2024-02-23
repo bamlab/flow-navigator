@@ -42,13 +42,13 @@ export const FlowNavigatorExample = () => {
 In each screen component, you can navigate through the flow using:
 
 ```tsx
-import { useFlowStatus } from '@bam.tech/flow-navigator';
+import { useFlow } from '@bam.tech/flow-navigator';
 import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { FlowNavigationProp } from '@bam.tech/flow-navigator';
 
 const Step1Page = () => {
   const { goToNextStep, goToPreviousStep } = useNavigation<FlowNavigationProp<ParamListBase>>();
-  const { currentStep } = useFlowStatus();
+  const { currentStep } = useFlow();
 
   return (
     <Button title="Go to next page" onPress={() => goToNextStep()} />
@@ -143,8 +143,8 @@ The flow navigator adds the following methods to the navigation prop:
 - `disableRoute`: To disable a route. Takes in param the route name to disable. 
   - Note that you can't disable a route currently focused on. But you can disable just after you navigated away: check out [this example](packages/example/src/steps/Step3/Step3-2Page.tsx). 
 
-### useFlowStatus
-Inside a screen defined below a Flow Navigator, you can use the `useFlowStatus`, which provides information about the current step of the flow. It contains the following properties:
+### useFlow
+Inside a screen defined below a Flow Navigator, you can use the `useFlow`, which provides information about the current step of the flow. It contains the following properties:
 
 - `currentStep`: A string representing the identifier of the current step in the flow. Based on the name of the screen.
 - `progress`: A number indicating the progress through the flow. It is calculated as the ratio of the current index to the total number of routes.
