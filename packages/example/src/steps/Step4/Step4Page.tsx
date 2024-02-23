@@ -3,18 +3,18 @@ import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {FlowInfos} from '../FlowInfos';
 import {useQueryClient, useMutation} from '@tanstack/react-query';
-import {postPassedStep4} from '../../queries/hasToPassStep4';
+import {postUserFlagB} from '../../queries/getUserFlagB';
 
 export const Step4Page = () => {
   const {goToPreviousStep, goToNextStep} = useFlow();
 
   const queryClient = useQueryClient();
   const {mutate: setHasToPassStep2ToOff} = useMutation(
-    ['postHasToPassStep4'],
-    postPassedStep4,
+    ['postUserFlagB'],
+    postUserFlagB,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['hasToPassStep4']);
+        queryClient.invalidateQueries(['userFlagB']);
         goToNextStep();
       },
     },
