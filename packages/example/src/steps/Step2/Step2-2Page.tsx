@@ -5,16 +5,16 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
 import {useAtom} from 'jotai';
-import {hasToPassStep3Atom} from '../../globalStates/hasToPassStep3';
+import {userFlagAAtom} from '../../globalStates/userFlagA';
 
 export const Step22Page = () => {
   const {goBack} = useNavigation<FlowNavigationProp<Step2StackParamList>>();
   const {goToNextStep} = useFlow();
 
-  const [_, setHasToPassStep3] = useAtom(hasToPassStep3Atom);
+  const [_, setUserFlagA] = useAtom(userFlagAAtom);
 
   const onNextPress = () => {
-    setHasToPassStep3(true);
+    setUserFlagA(true);
     goToNextStep();
   };
 
