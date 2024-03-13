@@ -136,7 +136,7 @@ Flows are sequences of pages with a pre-defined order, guiding users through a s
 
 ### FlowNavigator
 The Flow Navigator is built upon the foundation of the [native stack](https://reactnavigation.org/docs/native-stack-navigator/#api-definition), it inherits the same API.
-- 
+
 ### useFlow
 Inside a screen defined below a Flow Navigator, you can use the `useFlow`
 `useFlow` provides the following helpers:
