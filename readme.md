@@ -30,7 +30,7 @@ const FlowNavigator = createFlowNavigator();
 export const FlowNavigatorExample = () => {
    // Define your screens and their order in the flow
   return (
-    <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <FlowNavigator.Navigator>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       <FlowNavigator.Screen name="Step2" component={Step2Page} />
       <FlowNavigator.Screen name="Step3" component={Step2Page} />
@@ -43,12 +43,9 @@ In each screen component, you can navigate through the flow using:
 
 ```tsx
 import { useFlow } from '@bam.tech/flow-navigator';
-import { useNavigation, ParamListBase } from '@react-navigation/native';
-import { FlowNavigationProp } from '@bam.tech/flow-navigator';
 
 const Step1Page = () => {
-  const { goToNextStep, goToPreviousStep } = useNavigation<FlowNavigationProp<ParamListBase>>();
-  const { currentStep } = useFlow();
+  const { goToNextStep, goToPreviousStep, currentStep } = useFlow();
 
   return (
     <Button title="Go to next page" onPress={() => goToNextStep()} />
@@ -78,7 +75,7 @@ export const FlowNavigatorExample = () => {
   const [flag] = useAtom(flagAtom);
 
   return (
-    <FlowNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <FlowNavigator.Navigator>
       <FlowNavigator.Screen name="Step1" component={Step1Page} />
       {flag && <FlowNavigator.Screen name="Step2" component={Step2Page} />}
       <FlowNavigator.Screen name="Step3" component={Step3Page} />

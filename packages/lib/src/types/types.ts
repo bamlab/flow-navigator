@@ -1,10 +1,7 @@
 import {
   DefaultNavigatorOptions,
-  NavigationProp,
   NavigationState,
   ParamListBase,
-  RouteProp,
-  StackNavigationState,
   StackRouterOptions,
 } from "@react-navigation/native";
 import {
@@ -16,28 +13,6 @@ import { NativeStackNavigationConfig } from "@react-navigation/native-stack/lib/
 export type FlowNavigationOptions = NativeStackNavigationOptions;
 
 export type FlowNavigationEventMap = NativeStackNavigationEventMap;
-
-export type FlowScreenProps<
-  ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string,
-  NavigatorID extends string | undefined = undefined
-> = {
-  navigation: FlowNavigationProp<ParamList, RouteName, NavigatorID>;
-  route: RouteProp<ParamList, RouteName>;
-};
-
-export type FlowNavigationProp<
-  ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string,
-  NavigatorID extends string | undefined = undefined
-> = NavigationProp<
-  ParamList,
-  RouteName,
-  NavigatorID,
-  StackNavigationState<ParamList>,
-  FlowNavigationOptions,
-  FlowNavigationEventMap
->
 
 export type FlowNavigationState<ParamList extends ParamListBase> =
   NavigationState<ParamList> & {

@@ -10,9 +10,7 @@ export { useFlow } from "./navigators/useFlow";
  */
 export type {
   FlowNavigationEventMap,
-  FlowScreenProps,
   FlowNavigationState,
-  FlowNavigationProp,
 } from "./types/types";
 export type {
   FlowRouterOptions,
