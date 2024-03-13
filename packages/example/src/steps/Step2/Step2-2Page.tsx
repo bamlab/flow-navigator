@@ -1,6 +1,6 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {FlowNavigationProp, useFlow} from '@bam.tech/flow-navigator';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useFlow} from '@bam.tech/flow-navigator';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {Step2StackParamList} from './Step2Navigator';
 import {FlowInfos} from '../FlowInfos';
@@ -8,7 +8,7 @@ import {useAtom} from 'jotai';
 import {userFlagAAtom} from '../../globalStates/userFlagA';
 
 export const Step22Page = () => {
-  const {goBack} = useNavigation<FlowNavigationProp<Step2StackParamList>>();
+  const {goBack} = useNavigation<NavigationProp<Step2StackParamList>>();
   const {goToNextStep} = useFlow();
 
   const [_, setUserFlagA] = useAtom(userFlagAAtom);
