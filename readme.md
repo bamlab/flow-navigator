@@ -13,6 +13,10 @@ Flow Navigator provides a simplified API for managing navigation flows in your R
 
 ## Installation
 
+The flow navigator is built on top of react-navigation's native stack navigator. So it requires both [react-navigation](https://reactnavigation.org/docs/getting-started/) and the [native stack navigator](https://reactnavigation.org/docs/native-stack-navigator/) installed.
+
+To install the flow navigator, run:
+
 ```bash
 yarn add @bam.tech/flow-navigator
 # or
