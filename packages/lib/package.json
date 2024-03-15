@@ -7,7 +7,7 @@
   "source": "src/index.ts",
   "scripts": {
     "transpile": "yarn tsc",
-    "publish:prepare": "yarn transpile",
+    "publish:prepare": "yarn transpile && cp ../../README.md .",
     "publish:package": "yarn publish:prepare && npm publish --access public"
   },
   "repository": {
